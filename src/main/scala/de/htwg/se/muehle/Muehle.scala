@@ -1,4 +1,4 @@
-import Model.Player
+package de.htwg.se.muehle.Model
 
 object Muehle {
   def main(args: Array[String]): Unit = {

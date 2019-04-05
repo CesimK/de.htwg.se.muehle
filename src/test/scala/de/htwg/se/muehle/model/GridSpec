@@ -2,6 +2,7 @@ package de.htwg.se.muehle.model
 
 import org.scalatest.{Matchers, WordSpec}
 
+@Ignore
 class GridSpec extends WordSpec with Matchers {
   "A Grid" when { "new" should {
     val grid = Grid()

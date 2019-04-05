@@ -2,8 +2,9 @@ package de.htwg.se.muehle.model
 
 import org.scalatest.{Matchers, WordSpec}
 
+@Ignore
 class CellSpec extends WordSpec with Matchers {
-  ignore( "A Cell", when ) { "new" should {
+  "A Cell" when { "new" should {
     val cell = Cell()
     "should be empty"  in {
       cell.isfree should be("1")

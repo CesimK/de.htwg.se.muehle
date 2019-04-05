@@ -9,11 +9,11 @@ class StoneSpec extends WordSpec with Matchers {
     "will be owned by a player"  in {
       stone.owner should be(player)
     }
-    "to be sure you play with your stones, the stone have a colour to identify. Either white or black." {
+    "to be sure you play with your stones, the stone have a colour to identify. Either white or black." in {
       stone.team should be("white")
     }
-    "the game hasn't started yet so a new stone should not be placedd somewhere" in {
-      stone.cell should be(_)
+    "the game hasn't started yet so a new stone should not be placed somewhere" in {
+      stone.cell should be(null)
     }
   }}
 }

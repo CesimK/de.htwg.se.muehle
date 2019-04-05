@@ -1,9 +1,9 @@
 package de.htwg.se.muehle.model
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest._
 
 @Ignore
-class CellSpec extends WordSpec with Matchers {
+class CellSpecold extends WordSpec with Matchers {
   "A Cell" when { "new" should {
     val cell = Cell()
     "should be empty"  in {

@@ -13,7 +13,7 @@ class StoneSpec extends WordSpec with Matchers {
       stone.team should be("white")
     }
     "the game hasn't started yet so a new stone should not be placedd somewhere" in {
-      stone.cell should be("-")
+      stone.cell should be(_)
     }
   }}
 }

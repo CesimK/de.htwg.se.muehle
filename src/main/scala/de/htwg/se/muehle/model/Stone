@@ -1,0 +1,5 @@
+package de.htwg.se.muehle.model;
+
+case class Stone(owner: Player, colour: String, cell: Cell = _) {
+  override def toString:String = colour + " Stone\nfor Player: " + owner + "\nin cell:" + cell.pos
+}

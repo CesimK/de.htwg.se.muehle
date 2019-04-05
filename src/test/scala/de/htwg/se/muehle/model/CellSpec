@@ -2,6 +2,7 @@ package de.htwg.se.muehle.model
 
 import org.scalatest.{Matchers, WordSpec}
 
+@Ignore
 class CellSpec extends WordSpec with Matchers {
   "A Cell" when { "new" should {
     val cell = Cell()

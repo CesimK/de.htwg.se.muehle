@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.model
 
-import org.scalatest.{Matchers, WordSpec}
-
+import org.scalatest._
+@Ignore
 class PlayerSpec extends WordSpec with Matchers {
   "A Player" when { "new" should {
     val player = Player("Your Name")

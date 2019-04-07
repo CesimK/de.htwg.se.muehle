@@ -12,7 +12,7 @@ class PlayerSpec extends WordSpec with Matchers {
       player.toString should be("Your Name (White)")
     }
     "Also the player should have the start amount of 9 stone" in {
-      player.stones should be("9")
+      player.stones should be(9)
     }
     "With all these stones the player is not be able to jump with his stones" in {
       player.jump should be(false)

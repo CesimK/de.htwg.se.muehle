@@ -7,7 +7,7 @@ class CellSpecold extends WordSpec with Matchers {
   "A Cell" when { "new" should {
     val cell = Cell()
     "should be empty"  in {
-      cell.isfree should be("1")
+      cell.isfree should be(true)
     }
   }}
 }

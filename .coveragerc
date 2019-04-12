@@ -1,7 +1,0 @@
-#.coveragerc
-[run]
-branch = TRUE
-omit = */Muehle.scala
-
-[report]
-omit = */Muehle.scala

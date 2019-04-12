@@ -1,7 +1,5 @@
 language: scala
 
-coverageExcludedPackages :=  "*/Muehle.scala"
-
 scala:
   - 2.12.7
 

@@ -3,15 +3,15 @@ package de.htwg.se.muehle.model;
 class Tui {
   def process_cmd(flag:String, grid:Matrix[T]):Matrix[T] = {
    flag match {
-     case 'q' | 'quit'        => println("Closing the game. All unsaved changes will be lost.")
-     case 'n' | 'new'         => println("Starting a new game")
-     case 'm' | 'move'        => println("Move a Stone to a new position.")
-     case 'u' | 'undo'        => println("Undo the last turn")
-     case 'r' | 'redo'        => println("Redo the last turn")
-     case 's' | 'save'        => println("Save the game")
-     case 'l' | 'load'        => println("Load the game")
-     case 'sur' | 'surrender' => println("Give up")
-     case 'h' | '?' | 'help'  => println(this.help_text())
+     case 'q' | "quit"        => println("Closing the game. All unsaved changes will be lost.")
+     case 'n' | "new"         => println("Starting a new game")
+     case 'm' | "move"        => println("Move a Stone to a new position.")
+     case 'u' | "undo"        => println("Undo the last turn")
+     case 'r' | "redo"        => println("Redo the last turn")
+     case 's' | "save"        => println("Save the game")
+     case 'l' | "load"        => println("Load the game")
+     case 'sur' | "surrender" => println("Give up")
+     case 'h' | '?' | "help"  => println(this.help_text())
      case _                   => println("This command does not exists.\nPlease see the help which commands are allowed.")
    }
   }

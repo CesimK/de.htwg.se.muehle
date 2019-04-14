@@ -16,6 +16,6 @@ object Muehle {
     do {
       input = readLine()
       tui.process_cmd(input, grid)
-    }
+    } while (input != 'q')
   }
 }

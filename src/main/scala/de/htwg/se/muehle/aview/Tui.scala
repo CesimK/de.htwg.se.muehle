@@ -10,7 +10,7 @@ class Tui {
      case 'r' | "redo"        => println("Redo the last turn")
      case 's' | "save"        => println("Save the game")
      case 'l' | "load"        => println("Load the game")
-     case 'sur' | "surrender" => println("Give up")
+     case "sur" | "surrender" => println("Give up")
      case 'h' | '?' | "help"  => println(this.help_text())
      case _                   => println("This command does not exists.\nPlease see the help which commands are allowed.")
    }

@@ -45,7 +45,7 @@ class Field {
     adjacencyList = List[List[Int]]()
     vertexes = Array[Char](24)
 
-    val file: Source = Source.fromFile("util/GridEdges")
+    val file: Source = Source.fromFile("util/GridEdges.txt")
     createEdges(file)
 
     createVertexes()

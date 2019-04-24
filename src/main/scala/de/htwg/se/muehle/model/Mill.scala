@@ -5,7 +5,7 @@ import scala.io.Source
 class Mills {
 
   val number_vertexes = 24
-  val file: Source = Source.fromFile("/Util/mills.txt")
+  val file: Source = Source.fromFile("util/mills")
   insertMills(file)
   var mills: Array[MillsList] = new Array[MillsList](number_vertexes)
 

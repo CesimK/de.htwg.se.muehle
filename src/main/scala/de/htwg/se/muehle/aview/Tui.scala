@@ -1,4 +1,6 @@
-package de.htwg.se.muehle.model;
+package de.htwg.se.muehle.model
+
+import model.Field
 
 class Tui () {
   def process_cmd(flag:String, grid:Field):String = {

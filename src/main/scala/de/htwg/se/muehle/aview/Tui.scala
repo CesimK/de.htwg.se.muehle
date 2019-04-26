@@ -1,18 +1,18 @@
 package de.htwg.se.muehle.model;
 
-class Tui {
-  def process_cmd(flag:String, grid:Matrix[T]):Matrix[T] = {
+class Tui () {
+  def process_cmd(flag:String, grid:Field):String = {
    flag match {
-     case 'q' | "quit"        => println("Closing the game. All unsaved changes will be lost.")
-     case 'n' | "new"         => println("Starting a new game")
-     case 'm' | "move"        => println("Move a Stone to a new position.")
-     case 'u' | "undo"        => println("Undo the last turn")
-     case 'r' | "redo"        => println("Redo the last turn")
-     case 's' | "save"        => println("Save the game")
-     case 'l' | "load"        => println("Load the game")
-     case "sur" | "surrender" => println("Give up")
-     case 'h' | '?' | "help"  => println(this.help_text())
-     case _                   => println("This command does not exists.\nPlease see the help which commands are allowed.")
+     case "q" | "quit"        => return "Closing the game. All unsaved changes will be lost."
+     case "n" | "new"         => return "Starting a new game"
+     case "m" | "move"        => return "Move a Stone to a new position."
+     case "u" | "undo"        => return "Undo the last turn"
+     case "r" | "redo"        => return "Redo the last turn"
+     case "s" | "save"        => return "Save the game"
+     case "l" | "load"        => return "Load the game"
+     case "sur" | "surrender" => return "Give up"
+     case "h" | "?" | "help"  => return this.help_text()
+     case _                   => return "This command does not exists.\nPlease see the help which commands are allowed."
    }
   }
 
@@ -38,6 +38,6 @@ class Tui {
         "\tGive up the game. The other player will be declared as winner.\n\n" +
         "h | ? | help:\n"+
         "\tShows this help text."
-      retrun text
+      return text
   }
 }

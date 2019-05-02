@@ -1,8 +1,7 @@
 package de.htwg.se.muehle.model
 
 import de.htwg.se.muehle.controller.Controller
-import model.Field
-import util.Observer
+import de.htwg.se.muehle.util.Observer
 
 class Tui (controller: Controller) extends Observer{
   def process_cmd(flag:String):Unit = {

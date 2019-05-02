@@ -50,4 +50,12 @@ class Field {
 
     createVertexes()
   }
+
+  override def toString: String = {
+    val row1 = "x-----x-----x\n"
+    val row2 = "| x---x---x |\n"
+    val row3 = "| | x-x-x | |\n"
+    val mid  = "x-x-x   x-x-x\n"
+    row1 + row2 + row3 + mid + row3 + row2 + row1
+  }
 }

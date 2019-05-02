@@ -1,8 +1,8 @@
-package model
+package de.htwg.se.muehle.model
 
 import scala.io.Source
 
-class Field {
+case class Field() {
 
   val number_vertexes = 24
   val empty_vertex = '-'

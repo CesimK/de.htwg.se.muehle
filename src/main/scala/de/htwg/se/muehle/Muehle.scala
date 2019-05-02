@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.model
 
 import de.htwg.se.muehle.controller.Controller
-import model.Field
+import de.htwg.se.muehle.model.Field
 
 object Muehle {
   val controller = new Controller(new Field)

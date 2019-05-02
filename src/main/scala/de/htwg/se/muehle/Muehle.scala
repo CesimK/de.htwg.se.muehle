@@ -1,11 +1,11 @@
 package de.htwg.se.muehle.model
 
+import de.htwg.se.muehle.controller.Controller
 import model.Field
 
-import scala.io.StdIn.readLine
-
 object Muehle {
-  val tui = new Tui
+  val controller = new Controller(new Field)
+  val tui = new Tui(controller)
   val grid = new Field()
 
   def main(args: Array[String]): Unit = {
@@ -17,7 +17,7 @@ object Muehle {
 
     do {
       input = readLine()
-      println(tui.process_cmd(input, grid))
+      tui.process_cmd(input)
     } while (input != "q" && input != "quit")
   }
 }

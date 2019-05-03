@@ -1,22 +1,26 @@
 package de.htwg.se.muehle.aview
 
 import de.htwg.se.muehle.controller.Controller
+import de.htwg.se.muehle.model.Player
 import de.htwg.se.muehle.util.Observer
 
 class Tui (val controller: Controller) extends Observer{
   controller.add(this)
-  def process_cmd(flag:String):Unit = {
-   flag match {
-     case "q" | "quit"        => println("Closing the game. All unsaved changes will be lost.")
-     case "n" | "new"         => controller.createEmptyGrid()
-     case "m" | "move"        => println("Move a Stone to a new position.")
-     case "u" | "undo"        => println("Undo the last turn")
-     case "r" | "redo"        => println("Redo the last turn")
-     case "s" | "save"        => println("Save the game")
-     case "l" | "load"        => println("Load the game")
-     case "sur" | "surrender" => println("Give up")
-     case "h" | "?" | "help"  => println(this.help_text())
-     case _                   => println("This command does not exists.\nPlease see the help which commands are allowed.")
+
+  def process_cmd(cmd:String):Unit = {
+    val tokens = cmd.split(" ")
+    tokens(0) match {
+      case "q" | "quit"        => println("Closing the game. All unsaved changes will be lost.")
+      case "n" | "new | reset" => controller.createEmptyGrid()
+      case "m" | "move"        => println("Move a Stone to a new position.")
+      case "u" | "undo"        => println("Undo the last turn")
+      case "r" | "redo"        => println("Redo the last turn")
+      case "s" | "save"        => println("Save the game")
+      case "l" | "load"        => println("Load the game")
+      case "p" | "place"       => controller.placeStone(tokens(1).toInt - 1)
+      case "sur" | "surrender" => println("Give up")
+      case "h" | "?" | "help"  => println(this.help_text())
+      case _                   => println("This command does not exists.\nPlease see the help which commands are allowed.")
    }
   }
 
@@ -38,9 +42,11 @@ class Tui (val controller: Controller) extends Observer{
         "\tSave the current state of the game.\n\n" +
         "l | load:\n"+
         "\tLoad a previous saved game.\n\n" +
-        "sur | surrender:\n"+
+        "p | place\n" +
+        "\tTo place stones in the beginning of the game." +
+        "sur | surrender:\n" +
         "\tGive up the game. The other player will be declared as winner.\n\n" +
-        "h | ? | help:\n"+
+        "h | ? | help:\n" +
         "\tShows this help text."
 
   override def update: Unit = println(controller.gridToString)

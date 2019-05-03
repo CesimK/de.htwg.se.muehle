@@ -6,17 +6,17 @@ import de.htwg.se.muehle.model.Field
 import de.htwg.se.muehle.util.Observer
 
 class ControllerSpec extends WordSpec with Matchers {
+  val grid = Field()
+  val controller = new Controller(grid)
+  val observer = new Observer {
+    var updated: Boolean = false
+
+    def isUpdated: Boolean = updated
+
+    override def update: Unit = updated = true
+  }
   "A new Controller" when {
     "observed by an Observer" should {
-      val grid = Field()
-      val controller = new Controller(grid)
-      val observer = new Observer {
-        var updated: Boolean = false
-
-        def isUpdated: Boolean = updated
-
-        override def update: Unit = updated = true
-      }
       controller.add(observer)
       "notify its Observer after creation" in {
         controller.createEmptyGrid()
@@ -33,6 +33,12 @@ class ControllerSpec extends WordSpec with Matchers {
                       "| O---O---O |\n" +
                       "O-----O-----O\n"
         controller.gridToString should be (def_out)
+      }
+    }
+    "When the observer is outdated or execution finished" should {
+      "the observer can be removed" in {
+        controller.remove(observer)
+        controller.subscribers should be (Vector.empty)
       }
     }
   }

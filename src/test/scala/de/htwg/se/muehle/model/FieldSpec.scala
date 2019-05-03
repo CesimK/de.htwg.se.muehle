@@ -3,28 +3,22 @@ package de.htwg.se.muehle.model
 import org.scalatest.{Matchers, WordSpec}
 
 class FieldSpec extends WordSpec with Matchers {
- /* val src = GridEdges.txt
-  "A Field" when {
-    "new" should {
-      val adjacencyList = Field()
-      "have a adjacencyList" in {
-
-        for {idx <- 0 to adjacencyList.adjacencyList.length} {
-          adjacencyList.getAdjacencyList(idx) should be (_)
-        }
+  "A Field" when { "new" should {
+      val field = Field(init = true)
+      "create a Grid" in {
+        field.empty_grid.length should be(field.num_fields)
+        for (i <- field.empty_grid) i.toString should be (field.empty_field)
       }
-      "creating Edges" in {
-        adjacencyList.createEdges should be(adjacencyList(List))
-      }
-      "Create Vertexes" in {
-        adjacencyList.createVertexe should be(Unit)
-      }
-      "Set a Stone in Vertex" in {
-        adjacencyList.setVertex should be(true)
-      }
-      "Get Stone position" in {
-        adjacencyList.getVertex should be(vertex0)
+      "create a String to display" in {
+        val def_out = "O-----O-----O\n" +
+          "| O---O---O |\n" +
+          "| | O-O-O | |\n" +
+          "O-O-O   O-O-O\n" +
+          "| | O-O-O | |\n" +
+          "| O---O---O |\n" +
+          "O-----O-----O\n"
+        field.toString should be (def_out)
       }
     }
-  }*/
+  }
 }

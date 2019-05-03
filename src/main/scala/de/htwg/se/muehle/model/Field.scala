@@ -1,19 +1,18 @@
-package model
+package de.htwg.se.muehle.model
 
 import scala.io.Source
 
-class Field {
-
-  val number_vertexes = 24
-  val empty_vertex = '-'
+case class Field(var filled:Array[Char] = Array.empty , init:Boolean = false, num_fields:Int = 24) {
+  val empty_vertex = "O"
   val ZERO = 0
   val color_StoneP1 = 'b'
   val color_StoneP2 = 'w'
   val vertex_char = List(color_StoneP1, color_StoneP2, empty_vertex)
   var vertexes: Array[Char] = _
-  var adjacencyList: List[List[Int]] = _
+  if (init) filled = empty_grid
 
-  def getAdjacencyList(v: Int): List[Int] = adjacencyList(v)
+  def empty_grid:Array[Char] = (empty_vertex * num_fields).toCharArray
+  /*def getAdjacencyList(v: Int): List[Int] = adjacencyList(v)
 
   def createEdges(source: Source): Unit = {
     for (line <- source.getLines()) {
@@ -49,5 +48,17 @@ class Field {
     createEdges(file)
 
     createVertexes()
+  }
+  */
+  override def toString: String = {
+    val row1 = "x-----x-----x\n"
+    val row2 = "| x---x---x |\n"
+    val row3 = "| | x-x-x | |\n"
+    val mid  = "x-x-x   x-x-x\n"
+    var field = row1 + row2 + row3 + mid + row3 + row2 + row1
+    for {
+      index <- 0 until num_fields
+    } field = field.replaceFirst("x", filled(index).toString)
+    field
   }
 }

@@ -2,11 +2,11 @@ package de.htwg.se.muehle.controller
 
 
 import org.scalatest.{Matchers, WordSpec}
-import de.htwg.se.muehle.model.Field
+import de.htwg.se.muehle.model.Grid
 import de.htwg.se.muehle.util.Observer
 
 class ControllerSpec extends WordSpec with Matchers {
-  val grid = Field()
+  val grid = Grid()
   val controller = new Controller(grid)
   val observer = new Observer {
     var updated: Boolean = false

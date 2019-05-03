@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.model
 
 
-case class Field(var filled:Array[Char] = Array.empty , init:Boolean = false, num_fields:Int = 24) {
+case class Grid(var filled:Array[Char] = Array.empty, init:Boolean = false, num_fields:Int = 24) {
   val empty_field = "O"
   if (init) filled = empty_grid
 

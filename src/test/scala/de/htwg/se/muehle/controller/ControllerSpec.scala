@@ -25,13 +25,13 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.grid.num_fields should be(24)
       }
       "can ask its grid to create a String to display" in {
-        val def_out = "O-----O-----O" +
-                      "| O---O---O |" +
-                      "| | O-O-O | |" +
-                      "O-O-O   O-O-O" +
-                      "| | O-O-O | |" +
-                      "| O---O---O |" +
-                      "O-----O-----O"
+        val def_out = "O-----O-----O\n" +
+                      "| O---O---O |\n" +
+                      "| | O-O-O | |\n" +
+                      "O-O-O   O-O-O\n" +
+                      "| | O-O-O | |\n" +
+                      "| O---O---O |\n" +
+                      "O-----O-----O\n"
         controller.gridToString should be (def_out)
       }
     }

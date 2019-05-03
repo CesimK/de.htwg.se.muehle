@@ -3,7 +3,7 @@ package de.htwg.se.muehle.aview
 import de.htwg.se.muehle.controller.Controller
 import de.htwg.se.muehle.util.Observer
 
-class Tui (controller: Controller) extends Observer{
+class Tui (val controller: Controller) extends Observer{
   controller.add(this)
   def process_cmd(flag:String):Unit = {
    flag match {

@@ -1,12 +1,13 @@
-package de.htwg.se.muehle.model
+package de.htwg.se.muehle
 
+import de.htwg.se.muehle.model.{Field, Player}
 import de.htwg.se.muehle.controller.Controller
-import de.htwg.se.muehle.model.Field
+import de.htwg.se.muehle.aview.Tui
 
 object Muehle {
   val controller = new Controller(new Field)
   val tui = new Tui(controller)
-  val grid = new Field()
+  val grid = Field()
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
@@ -16,7 +17,7 @@ object Muehle {
     println("Hello, " + player2.name)
 
     do {
-      input = readLine()
+      input = scala.io.StdIn()
       tui.process_cmd(input)
     } while (input != "q" && input != "quit")
   }

@@ -1,9 +1,10 @@
-package de.htwg.se.muehle.model
+package de.htwg.se.muehle.aview
 
 import de.htwg.se.muehle.controller.Controller
 import de.htwg.se.muehle.util.Observer
 
 class Tui (controller: Controller) extends Observer{
+  controller.add(this)
   def process_cmd(flag:String):Unit = {
    flag match {
      case "q" | "quit"        => println("Closing the game. All unsaved changes will be lost.")

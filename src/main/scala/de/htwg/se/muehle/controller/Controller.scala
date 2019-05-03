@@ -5,7 +5,7 @@ import de.htwg.se.muehle.util.Observable
 
 class Controller(var grid:Field) extends Observable{
   def createEmptyGrid():Unit = {
-    grid = new Field()
+    grid = Field(init = true)
     notifyObservers
   }
 

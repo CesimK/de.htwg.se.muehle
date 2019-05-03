@@ -21,17 +21,18 @@ class ControllerSpec extends WordSpec with Matchers {
       "notify its Observer after creation" in {
         controller.createEmptyGrid()
         observer.updated should be(true)
-        controller.grid.number_vertexes should be(24)
+        controller.grid.init should be (true)
+        controller.grid.num_fields should be(24)
       }
       "can ask its grid to create a String to display" in {
-        val def_out = "x-----x-----x" +
-                      "| x---x---x |" +
-                      "| | x-x-x | |" +
-                      "x-x-x   x-x-x" +
-                      "| | x-x-x | |" +
-                      "| x---x---x |" +
-                      "x-----x-----x"
-        controller.gridToString should be ()
+        val def_out = "O-----O-----O" +
+                      "| O---O---O |" +
+                      "| | O-O-O | |" +
+                      "O-O-O   O-O-O" +
+                      "| | O-O-O | |" +
+                      "| O---O---O |" +
+                      "O-----O-----O"
+        controller.gridToString should be (def_out)
       }
     }
   }

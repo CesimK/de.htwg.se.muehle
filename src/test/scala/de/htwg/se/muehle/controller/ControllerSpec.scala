@@ -2,11 +2,11 @@ package de.htwg.se.muehle.controller
 
 
 import org.scalatest.{Matchers, WordSpec}
-import de.htwg.se.muehle.model.{Field, Player}
+import de.htwg.se.muehle.model.{Grid, Player}
 import de.htwg.se.muehle.util.Observer
 
 class ControllerSpec extends WordSpec with Matchers {
-  val grid = Field()
+  val grid = Grid()
   val player1 = Player("Person 1", 'W')
   val player2 = Player("Person 2", 'B')
   val controller = new Controller(grid, player1, player2)

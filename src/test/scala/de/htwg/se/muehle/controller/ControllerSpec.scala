@@ -10,6 +10,7 @@ class ControllerSpec extends WordSpec with Matchers {
   val player1 = Player("Person 1", 'W')
   val player2 = Player("Person 2", 'B')
   val controller = new Controller(grid, player1, player2)
+
   val observer = new Observer {
     var updated: Boolean = false
 

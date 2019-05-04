@@ -7,7 +7,7 @@ class Controller(var grid:Field, var p1:Player, var p2:Player) extends Observabl
   var active:Player = p1
 
   def createEmptyGrid():Unit = {
-    grid = Field(init = true)
+    grid = Grid(init = true)
     notifyObservers
   }
 

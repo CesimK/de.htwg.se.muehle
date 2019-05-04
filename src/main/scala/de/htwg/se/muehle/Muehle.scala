@@ -1,10 +1,13 @@
 package de.htwg.se.muehle
 
-import de.htwg.se.muehle.model.{Field, Player}
+import de.htwg.se.muehle.model.{Grid, Player}
 import de.htwg.se.muehle.controller.Controller
 import de.htwg.se.muehle.aview.Tui
 
 object Muehle {
+  val field = new Grid()
+  val controller = new Controller(field)
+  val tui = new Tui(controller)
 
   def main(args: Array[String]): Unit = {
     var input: String = ""

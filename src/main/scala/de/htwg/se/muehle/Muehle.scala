@@ -5,9 +5,6 @@ import de.htwg.se.muehle.controller.Controller
 import de.htwg.se.muehle.aview.Tui
 
 object Muehle {
-  val field = new Grid()
-  val controller = new Controller(field)
-  val tui = new Tui(controller)
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
@@ -16,7 +13,7 @@ object Muehle {
     val player2 = Player("Christopher Gogl", 'B')
     println("Hello, " + player2.name)
 
-    val field = Field()
+    val field = Grid()
     val controller = new Controller(field, player1, player2)
     val tui = new Tui(controller)
     do {

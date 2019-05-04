@@ -1,11 +1,11 @@
 package de.htwg.se.muehle.aview
 
 import de.htwg.se.muehle.controller.Controller
-import de.htwg.se.muehle.model.{Field, Player}
+import de.htwg.se.muehle.model.{Grid, Player}
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiSpec extends WordSpec with Matchers {
-  val grid = Field()
+  val grid = Grid()
   val player1 = Player("Person 1", 'W')
   val player2 = Player("Person 2", 'B')
   val controller = new Controller(grid, player1, player2)

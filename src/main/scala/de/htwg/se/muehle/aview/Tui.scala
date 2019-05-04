@@ -1,25 +1,30 @@
-package de.htwg.se.muehle.model
+package de.htwg.se.muehle.aview
 
-import model.Field
+import de.htwg.se.muehle.controller.Controller
+import de.htwg.se.muehle.util.Observer
 
-class Tui () {
-  def process_cmd(flag:String, grid:Field):String = {
-   flag match {
-     case "q" | "quit"        => return "Closing the game. All unsaved changes will be lost."
-     case "n" | "new"         => return "Starting a new game"
-     case "m" | "move"        => return "Move a Stone to a new position."
-     case "u" | "undo"        => return "Undo the last turn"
-     case "r" | "redo"        => return "Redo the last turn"
-     case "s" | "save"        => return "Save the game"
-     case "l" | "load"        => return "Load the game"
-     case "sur" | "surrender" => return "Give up"
-     case "h" | "?" | "help"  => return this.help_text()
-     case _                   => return "This command does not exists.\nPlease see the help which commands are allowed."
+class Tui (val controller: Controller) extends Observer{
+  controller.add(this)
+
+  def process_cmd(cmd:String):Unit = {
+    val tokens = cmd.split(" ")
+    tokens(0) match {
+      case "q" | "quit"          => println("Closing the game. All unsaved changes will be lost.")
+      case "n" | "new" | "reset" => controller.createEmptyGrid()
+      case "m" | "move"          => println("Move a Stone to a new position.")
+      case "u" | "undo"          => println("Undo the last turn")
+      case "r" | "redo"          => println("Redo the last turn")
+      case "s" | "save"          => println("Save the game")
+      case "l" | "load"          => println("Load the game")
+      case "p" | "place"         => controller.placeStone(tokens(1).toInt - 1)
+      case "sur" | "surrender"   => println("Give up")
+      case "h" | "?" | "help"    => println(this.help_text())
+      case _                     => println("This command does not exists.\nPlease see the help which commands are allowed.")
    }
   }
 
-  def help_text():String = {
-      val text:String = "The following commands can be used to controll the game.\n"+
+  def help_text():String =
+      "The following commands can be used to controll the game.\n"+
         "To get more information about a command use:\n" +
         "\t<h|help> <command>\n\n" +
         "q | quit:\n" +
@@ -36,10 +41,12 @@ class Tui () {
         "\tSave the current state of the game.\n\n" +
         "l | load:\n"+
         "\tLoad a previous saved game.\n\n" +
-        "sur | surrender:\n"+
+        "p | place\n" +
+        "\tTo place stones in the beginning of the game." +
+        "sur | surrender:\n" +
         "\tGive up the game. The other player will be declared as winner.\n\n" +
-        "h | ? | help:\n"+
+        "h | ? | help:\n" +
         "\tShows this help text."
-      return text
-  }
+
+  override def update: Unit = println(controller.gridToString)
 }

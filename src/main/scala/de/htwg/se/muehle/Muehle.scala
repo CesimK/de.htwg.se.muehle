@@ -1,23 +1,24 @@
-package de.htwg.se.muehle.model
+package de.htwg.se.muehle
 
-import model.Field
-
-import scala.io.StdIn.readLine
+import de.htwg.se.muehle.model.{Grid, Player}
+import de.htwg.se.muehle.controller.Controller
+import de.htwg.se.muehle.aview.Tui
 
 object Muehle {
-  val tui = new Tui
-  val grid = new Field()
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
-    val player1 = Player("Cesim Keskin", "White")
+    val player1 = Player("Cesim Keskin", 'W')
     println("Hello, " + player1.name)
-    val player2 = Player("Christopher Gogl", "Black")
+    val player2 = Player("Christopher Gogl", 'B')
     println("Hello, " + player2.name)
 
+    val field = Grid()
+    val controller = new Controller(field, player1, player2)
+    val tui = new Tui(controller)
     do {
-      input = readLine()
-      println(tui.process_cmd(input, grid))
+      input = scala.io.StdIn.readLine()
+      tui.process_cmd(input)
     } while (input != "q" && input != "quit")
   }
 }

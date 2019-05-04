@@ -5,19 +5,33 @@ import de.htwg.se.muehle.util.Observable
 
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable{
   var active:Player = p1
+  var status:String = ""
 
-  def createEmptyGrid():Unit = {
+  def newGame():Unit = {
     grid = Grid(init = true)
+    p1 = new Player(p1.name, 'W')
+    p2 = new Player(p2.name, 'B')
+    active = p1
     notifyObservers
   }
 
   def gridToString: String = grid.toString
 
   def placeStone(pos:Int):Unit = {
-    if (active.placed >= 9 || grid.filled(pos) != grid.empty_grid(pos)) {
+    if (active.stones != 9 || active.placed >= 9) {
+      status = "All Stones are already placed.\n" +
+               "To move a stone use the 'move' command."
       notifyObservers
       return
     }
+
+    if (grid.filled(pos) != grid.empty_grid(pos)) {
+      status = "This field is already blocked.\n" +
+               "Select another field to place your stone."
+      notifyObservers
+      return
+    }
+
     val edit_grid = grid.filled
     edit_grid(pos) = active.color
     grid = Grid(edit_grid, num_fields = grid.num_fields)

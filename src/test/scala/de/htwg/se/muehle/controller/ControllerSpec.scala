@@ -22,7 +22,7 @@ class ControllerSpec extends WordSpec with Matchers {
     "observed by an Observer" should {
       controller.add(observer)
       "notify its Observer after creation" in {
-        controller.createEmptyGrid()
+        controller.newGame()
         observer.updated should be(true)
         controller.grid.init should be (true)
         controller.grid.num_fields should be(24)
@@ -71,6 +71,14 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.placeStone(1)
       controller.grid.filled should contain (controller.p2.color)
       controller.active should be (controller.p1)
+    }
+    "A Player that has placed all his stones, cannot place more." in {
+      controller.p1 = new Player(controller.p1.name, controller.p1.color, 9)
+      controller.p1.placed should be (9)
+      controller.active = controller.p1
+      val tmp = controller.grid.filled
+      controller.placeStone( 2)
+      controller.grid.filled should be (tmp)
     }
   }
 }

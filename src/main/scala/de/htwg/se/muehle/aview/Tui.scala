@@ -10,7 +10,7 @@ class Tui (val controller: Controller) extends Observer{
     val tokens = cmd.split(" ")
     tokens(0) match {
       case "q" | "quit"          => println("Closing the game. All unsaved changes will be lost.")
-      case "n" | "new" | "reset" => controller.createEmptyGrid()
+      case "n" | "new" | "reset" => controller.newGame()
       case "m" | "move"          => println("Move a Stone to a new position.")
       case "u" | "undo"          => println("Undo the last turn")
       case "r" | "redo"          => println("Redo the last turn")
@@ -48,5 +48,14 @@ class Tui (val controller: Controller) extends Observer{
         "h | ? | help:\n" +
         "\tShows this help text."
 
-  override def update: Unit = println(controller.gridToString)
+  override def update: Unit = {
+    if (!controller.status.equals("")) {
+      println("Status:\n" + controller.status)
+      controller.status = ""
+    }
+    println("Next Player: " + controller.active)
+    println("Stones placed: " + controller.active.placed)
+    println("Stones left: " + controller.active.stones)
+    println(controller.gridToString)
+  }
 }

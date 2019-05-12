@@ -45,4 +45,32 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     notifyObservers
   }
 
+  def moveStone(src:Int, pos:Int):Unit = {
+    if (active.placed != 9) {
+      status = "Place all stones before moving one."
+      notifyObservers
+      return
+    }
+    if (!grid.filled(src).equals(active.color)) {
+      status = "At the selected field is none of your stones placed."
+      notifyObservers
+      return
+    }
+    if (!grid.is_free(pos)) {
+      status = "On this field is already a stone placed.\n" +
+               "Choose another field to place your stone."
+      notifyObservers
+      return
+    }
+    val edit_grid = grid.filled
+    edit_grid(pos) = active.color
+    edit_grid(src) = grid.empt_val
+    grid = Grid(edit_grid, num_fields = grid.num_fields)
+    if (active.name.equals(p1.name)) {
+      active = p2
+    } else {
+      active = p1
+    }
+    notifyObservers
+  }
 }

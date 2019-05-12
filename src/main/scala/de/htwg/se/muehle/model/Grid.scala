@@ -3,6 +3,7 @@ package de.htwg.se.muehle.model
 
 case class Grid(var filled:Array[Char] = Array.empty, init:Boolean = false, num_fields:Int = 24) {
   val empty_field = "O"
+  val empt_val = 'O'
   if (init) filled = empty_grid
 
   def empty_grid:Array[Char] = (empty_field * num_fields).toCharArray
@@ -18,4 +19,6 @@ case class Grid(var filled:Array[Char] = Array.empty, init:Boolean = false, num_
     } field = field.replaceFirst("x", filled(index).toString)
     field
   }
+
+  def is_free(pos:Int): Boolean = filled(pos).equals(empt_val)
 }

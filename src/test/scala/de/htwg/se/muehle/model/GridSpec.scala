@@ -21,4 +21,11 @@ class GridSpec extends WordSpec with Matchers {
       }
     }
   }
+  "A Grid that has already stones placed" should {
+    "check if it is free or not" in {
+      val grid = new Grid((("W"*9)+("B"*9)+("O"*6)).toCharArray)
+      grid.is_free(0) should be (false)
+      grid.is_free(23) should be (true)
+    }
+  }
 }

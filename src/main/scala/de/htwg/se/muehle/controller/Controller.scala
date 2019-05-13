@@ -1,7 +1,8 @@
 package de.htwg.se.muehle.controller
 
-import de.htwg.se.muehle.model.{Grid, Player}
 import de.htwg.se.muehle.util.Observable
+import model.gridComponent.gridBaseImpl.Grid
+import model.playerComponent.Player
 
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable{
   var active:Player = p1

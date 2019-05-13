@@ -1,8 +1,8 @@
 package de.htwg.se.muehle
 
-import de.htwg.se.muehle.model.{Grid, Player}
 import de.htwg.se.muehle.controller.Controller
 import de.htwg.se.muehle.aview.Tui
+import model.playerComponent.Player
 
 object Muehle {
 

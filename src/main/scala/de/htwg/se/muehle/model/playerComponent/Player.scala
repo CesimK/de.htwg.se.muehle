@@ -1,4 +1,4 @@
-package de.htwg.se.muehle.model
+package model.playerComponent
 
 case class Player(name: String, color:Char, placed:Int = 0) {
   val stones:Int = 9

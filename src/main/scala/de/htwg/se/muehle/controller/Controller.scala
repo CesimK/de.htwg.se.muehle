@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.controller
 
 import de.htwg.se.muehle.util.Observable
-import model.gridComponent.gridBaseImpl.Grid
+import model.gridComponent.gridBaseImpl.{Grid, GridCreateRandomStrategy}
 import model.playerComponent.Player
 
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable{
@@ -72,6 +72,11 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     } else {
       active = p1
     }
+    notifyObservers
+  }
+
+  def createRandomGrid(rdm:Grid): Unit = {
+    grid = (new GridCreateRandomStrategy).createNewGrid(rdm)
     notifyObservers
   }
 }

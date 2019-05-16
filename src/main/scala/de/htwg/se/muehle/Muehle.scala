@@ -2,6 +2,7 @@ package de.htwg.se.muehle
 
 import de.htwg.se.muehle.controller.Controller
 import de.htwg.se.muehle.aview.Tui
+import model.gridComponent.gridBaseImpl.Grid
 import model.playerComponent.Player
 
 object Muehle {

@@ -1,4 +1,4 @@
-package model.gridComponent.gridBaseImpl
+package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 
 import model.gridComponent.IGrid
 

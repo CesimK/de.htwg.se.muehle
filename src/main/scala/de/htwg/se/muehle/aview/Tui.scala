@@ -29,6 +29,8 @@ class Tui (val controller: Controller) extends Observer{
         "\t<h|help> <command>\n\n" +
         "q | quit:\n" +
         "\tClose the game. The actual progress won't be saved. All changes are lost.\n\n" +
+        "f | field:\n" +
+        "\tCreate an empty Field.\n\n" +
         "n | new:\n"+
         "\tStart a new game. The current progress get lost and won't be saved.\n\n" +
         "m | move:\n"+

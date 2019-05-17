@@ -1,17 +1,17 @@
 package de.htwg.se.muehle.controller
 
 import de.htwg.se.muehle.util.Observable
-import model.gridComponent.gridBaseImpl.{Grid, GridCreateRandomStrategy}
-import model.playerComponent.Player
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
+import de.htwg.se.muehle.model.playerComponent.Player
 
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable{
   var active:Player = p1
   var status:String = ""
 
   def newGame():Unit = {
-    grid = Grid(init = true)
-    p1 = new Player(p1.name, 'W')
-    p2 = new Player(p2.name, 'B')
+    grid = (new GridCreateGridStrategy).setGrid(grid)
+    p1 = Player(p1.name, 'W')
+    p2 = Player(p2.name, 'B')
     active = p1
     notifyObservers
   }
@@ -75,8 +75,4 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     notifyObservers
   }
 
-  def createRandomGrid(rdm:Grid): Unit = {
-    grid = (new GridCreateRandomStrategy).createNewGrid(rdm)
-    notifyObservers
-  }
 }

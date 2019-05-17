@@ -1,4 +1,4 @@
-package de.htwg.se.muehle.model
+package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 
 import org.scalatest.{Matchers, WordSpec}
 

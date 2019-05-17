@@ -2,7 +2,8 @@ package de.htwg.se.muehle.controller
 
 
 import org.scalatest.{Matchers, WordSpec}
-import de.htwg.se.muehle.model.{Grid, Player}
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Grid
+import de.htwg.se.muehle.model.playerComponent.Player
 import de.htwg.se.muehle.util.Observer
 
 class ControllerSpec extends WordSpec with Matchers {

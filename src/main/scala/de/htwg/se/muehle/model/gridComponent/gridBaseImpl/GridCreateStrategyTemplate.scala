@@ -1,12 +1,11 @@
-package model.gridComponent.gridBaseImpl
+package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 
 trait GridCreateStrategyTemplate {
 
-  def createNewGrid(grid: Grid): Grid = {
-    var grid = new Grid(grid)
+  def createNewGrid(charArray: Array[Char]): Grid = {
+    var grid = new Grid(charArray)
     grid = prepare(grid)
-    grid = fill(grid)
-    grid = postProcess(grid)
+    grid = setGrid(grid)
     grid
   }
 
@@ -15,10 +14,5 @@ trait GridCreateStrategyTemplate {
     grid
   }
 
-  def fill(grid: Grid) : Grid // abstract
-
-  def postProcess(grid: Grid):Grid = { // default implementation
-    grid.empty_grid
-  }
-
+  def setGrid(grid: Grid) : Grid // abstract
 }

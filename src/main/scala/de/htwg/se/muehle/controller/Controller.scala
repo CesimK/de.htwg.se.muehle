@@ -7,6 +7,8 @@ import de.htwg.se.muehle.model.playerComponent.Player
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable{
   var active:Player = p1
   var status:String = ""
+  val state = new ControllerStateStatus
+  val activeVal = new ControllerStateActive
 
   def newGame():Unit = {
     grid = (new GridCreateGridStrategy).setGrid(grid)
@@ -20,15 +22,12 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
 
   def placeStone(pos:Int):Unit = {
     if (active.stones != 9 || active.placed >= 9) {
-      status = "All Stones are already placed.\n" +
-               "To move a stone use the 'move' command."
+      state.allStonesPlaced(status)
       notifyObservers
       return
     }
-
     if (grid.filled(pos) != grid.empty_grid(pos)) {
-      status = "This field is already blocked.\n" +
-               "Select another field to place your stone."
+      state.slotIsFilled(status)
       notifyObservers
       return
     }
@@ -48,18 +47,17 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
 
   def moveStone(src:Int, pos:Int):Unit = {
     if (active.placed != 9) {
-      status = "Place all stones before moving one."
+      state.stonesStillAvailable(status)
       notifyObservers
       return
     }
     if (!grid.filled(src).equals(active.color)) {
-      status = "At the selected field is none of your stones placed."
+      state.selectedFieldInvalid(status)
       notifyObservers
       return
     }
     if (!grid.is_free(pos)) {
-      status = "On this field is already a stone placed.\n" +
-               "Choose another field to place your stone."
+      state.selectedFieldNotEmpty(status)
       notifyObservers
       return
     }

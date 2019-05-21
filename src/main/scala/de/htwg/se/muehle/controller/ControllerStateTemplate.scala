@@ -2,13 +2,12 @@ package de.htwg.se.muehle.controller
 
 trait ControllerStateTemplate {
 
-  def setActivePlayer(): Unit = {
-
-  }
-
-  def setState(status:String):Unit = {
+  def setStatePlaceStones(status:String):Unit = {
     allStonesPlaced(status)
     slotIsFilled(status)
+  }
+
+  def setStateMoveStones(status:String):Unit = {
     stonesStillAvailable(status)
     selectedFieldInvalid(status)
     selectedFieldNotEmpty(status)

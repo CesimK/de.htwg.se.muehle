@@ -7,8 +7,9 @@ import de.htwg.se.muehle.model.playerComponent.Player
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable{
   var active:Player = p1
   var status:String = ""
-  val state = new ControllerStateStatus
-  val activeVal = new ControllerStateActive
+  val stateP = new ControllerStateStatusPlaced
+  val stateM = new ControllerStsteStatusMoved
+  val active_Player = new ControllerStateActiveTemplate
 
   def newGame():Unit = {
     grid = (new GridCreateGridStrategy).setGrid(grid)
@@ -22,12 +23,12 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
 
   def placeStone(pos:Int):Unit = {
     if (active.stones != 9 || active.placed >= 9) {
-      state.allStonesPlaced(status)
+      stateP.allStonesPlaced(status)
       notifyObservers
       return
     }
     if (grid.filled(pos) != grid.empty_grid(pos)) {
-      state.slotIsFilled(status)
+      stateP.slotIsFilled(status)
       notifyObservers
       return
     }
@@ -47,17 +48,17 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
 
   def moveStone(src:Int, pos:Int):Unit = {
     if (active.placed != 9) {
-      state.stonesStillAvailable(status)
+      stateM.stonesStillAvailable(status)
       notifyObservers
       return
     }
     if (!grid.filled(src).equals(active.color)) {
-      state.selectedFieldInvalid(status)
+      stateM.selectedFieldInvalid(status)
       notifyObservers
       return
     }
     if (!grid.is_free(pos)) {
-      state.selectedFieldNotEmpty(status)
+      stateM.selectedFieldNotEmpty(status)
       notifyObservers
       return
     }

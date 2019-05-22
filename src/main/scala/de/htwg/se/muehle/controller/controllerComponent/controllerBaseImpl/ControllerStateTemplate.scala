@@ -1,4 +1,4 @@
-package de.htwg.se.muehle.controller
+package controller.controllerComponent.controllerBaseImpl
 
 trait ControllerStateTemplate {
 

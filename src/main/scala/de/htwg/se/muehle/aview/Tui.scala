@@ -1,6 +1,6 @@
 package de.htwg.se.muehle.aview
 
-import de.htwg.se.muehle.controller.Controller
+import controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.muehle.util.Observer
 
 class Tui (val controller: Controller) extends Observer{

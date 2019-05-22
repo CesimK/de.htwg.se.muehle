@@ -10,16 +10,20 @@ case class Grid(var filled:Array[Char] = Array.empty, init:Boolean = false, num_
   override def empty_grid:Array[Char] = (empty_field * num_fields).toCharArray
 
   override def toString: String = {
-    val row1 = "x-----x-----x\n"
-    val row2 = "| x---x---x |\n"
-    val row3 = "| | x-x-x | |\n"
-    val mid  = "x-x-x   x-x-x\n"
-    var field = row1 + row2 + row3 + mid + row3 + row2 + row1
+    Singleton.field
     for {
       index <- 0 until num_fields
-    } field = field.replaceFirst("x", filled(index).toString)
-    field
+    } Singleton.field = Singleton.field.replaceFirst("x", filled(index).toString)
+    Singleton.field
   }
 
   override def is_free(pos:Int): Boolean = filled(pos).equals(empt_val)
+}
+
+object Singleton {
+  val row1 = "x-----x-----x\n"
+  val row2 = "| x---x---x |\n"
+  val row3 = "| | x-x-x | |\n"
+  val mid  = "x-x-x   x-x-x\n"
+  var field = row1 + row2 + row3 + mid + row3 + row2 + row1
 }

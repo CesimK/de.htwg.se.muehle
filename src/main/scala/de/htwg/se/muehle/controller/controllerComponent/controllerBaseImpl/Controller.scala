@@ -4,7 +4,7 @@ import de.htwg.se.muehle.controller.controllerComponent.IController
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.playerComponent.Player
 import de.htwg.se.muehle.util.{Observable, UndoManager}
-import de.htwg.se.muehle.controller.controllerComponent.commands.MoveCommand
+import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
 
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable {
   var active:Player = p1
@@ -36,11 +36,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
       notifyObservers
       return
     }
-
-    val edit_grid = grid.filled
-    edit_grid(pos) = active.color
-    grid = Grid(edit_grid, num_fields = grid.num_fields)
-    active_Placed.switchActivePlayerPlaced(this)
+    undo_manager.doStep(new PlaceCommand(this, pos))
     notifyObservers
   }
 
@@ -63,6 +59,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     undo_manager.doStep(new MoveCommand(this, src, pos))
     notifyObservers
   }
+
   def undo: Unit = {
     undo_manager.undoStep
     notifyObservers

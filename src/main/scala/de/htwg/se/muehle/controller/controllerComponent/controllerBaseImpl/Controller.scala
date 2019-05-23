@@ -5,7 +5,7 @@ import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridS
 import de.htwg.se.muehle.model.playerComponent.Player
 import de.htwg.se.muehle.util.Observable
 
-class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable {
+class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable with IController {
   var active:Player = p1
   var status:String = ""
   val state_Placed = new ControllerStateStatusPlaced
@@ -13,7 +13,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
   val active_Placed = new ControllerStateActivePlaced
   val active_Moved = new ControllerStateActiveMoved
 
-  def newGame():Unit = {
+  override def newGame():Unit = {
     grid = (new GridCreateGridStrategy).setGrid(grid)
     p1 = Player(p1.name, 'W')
     p2 = Player(p2.name, 'B')
@@ -21,9 +21,9 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     notifyObservers
   }
 
-  def gridToString: String = grid.toString
+  override def gridToString: String = grid.toString
 
-  def placeStone(pos:Int):Unit = {
+  override def placeStone(pos:Int):Unit = {
     if (active.stones != 9 || active.placed >= 9) {
       state_Placed.allStonesPlaced(status)
       notifyObservers
@@ -42,7 +42,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     notifyObservers
   }
 
-  def moveStone(src:Int, pos:Int):Unit = {
+  override def moveStone(src:Int, pos:Int):Unit = {
     if (active.placed != 9) {
       state_Moved.stonesStillAvailable(status)
       notifyObservers

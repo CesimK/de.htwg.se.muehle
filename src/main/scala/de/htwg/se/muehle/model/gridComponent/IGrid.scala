@@ -1,4 +1,4 @@
-package model.gridComponent
+package de.htwg.se.muehle.model.gridComponent
 
 trait IGrid {
 

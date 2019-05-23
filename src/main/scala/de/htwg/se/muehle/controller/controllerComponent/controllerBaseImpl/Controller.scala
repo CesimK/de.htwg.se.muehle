@@ -1,11 +1,11 @@
-package controller.controllerComponent.controllerBaseImpl
+package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
-import controller.controllerComponent.IController
+import de.htwg.se.muehle.controller.controllerComponent.IController
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.playerComponent.Player
 import de.htwg.se.muehle.util.Observable
 
-class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable with IController{
+class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable {
   var active:Player = p1
   var status:String = ""
   val state_Placed = new ControllerStateStatusPlaced
@@ -13,7 +13,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
   val active_Placed = new ControllerStateActivePlaced
   val active_Moved = new ControllerStateActiveMoved
 
-  override def newGame():Unit = {
+  def newGame():Unit = {
     grid = (new GridCreateGridStrategy).setGrid(grid)
     p1 = Player(p1.name, 'W')
     p2 = Player(p2.name, 'B')
@@ -21,9 +21,9 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     notifyObservers
   }
 
-  override def gridToString: String = grid.toString
+  def gridToString: String = grid.toString
 
-  override def placeStone(pos:Int):Unit = {
+  def placeStone(pos:Int):Unit = {
     if (active.stones != 9 || active.placed >= 9) {
       state_Placed.allStonesPlaced(status)
       notifyObservers
@@ -38,12 +38,11 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     val edit_grid = grid.filled
     edit_grid(pos) = active.color
     grid = Grid(edit_grid, num_fields = grid.num_fields)
-
-    active_Placed.switchActivePlayerPlaced(p1,p2)
+    active_Placed.switchActivePlayerPlaced(this)
     notifyObservers
   }
 
-  override def moveStone(src:Int, pos:Int):Unit = {
+  def moveStone(src:Int, pos:Int):Unit = {
     if (active.placed != 9) {
       state_Moved.stonesStillAvailable(status)
       notifyObservers
@@ -63,8 +62,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     edit_grid(pos) = active.color
     edit_grid(src) = grid.empt_val
     grid = Grid(edit_grid, num_fields = grid.num_fields)
-
-    active_Moved.switchActivePlayerMoved(p1,p2)
+    active_Moved.switchActivePlayerMoved(this)
     notifyObservers
   }
 

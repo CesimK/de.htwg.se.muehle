@@ -1,4 +1,4 @@
-package controller.controllerComponent
+package de.htwg.se.muehle.controller.controllerComponent
 
 trait IController {
 

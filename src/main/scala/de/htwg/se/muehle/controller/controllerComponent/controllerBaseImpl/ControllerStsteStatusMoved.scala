@@ -1,8 +1,8 @@
-package controller.controllerComponent.controllerBaseImpl
+package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 class ControllerStsteStatusMoved extends ControllerStateTemplate {
 
-  def stonesStillAvailable(status: String): Unit = println("Place all stones before moving one.")
+  def stonesStillAvailable(status: String): Unit = println("Place all stones before moving one stone.")
 
   def selectedFieldInvalid(status: String): Unit = println("At the selected field is none of your stones placed.")
 

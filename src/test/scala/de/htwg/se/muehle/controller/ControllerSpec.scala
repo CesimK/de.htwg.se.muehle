@@ -1,6 +1,7 @@
 package de.htwg.se.muehle.controller
 
 
+import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
 import org.scalatest.{Matchers, WordSpec}
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Grid
 import de.htwg.se.muehle.model.playerComponent.Player

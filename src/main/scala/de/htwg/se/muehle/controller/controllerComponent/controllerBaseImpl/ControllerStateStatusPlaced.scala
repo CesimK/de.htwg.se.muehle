@@ -1,6 +1,6 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
-class ControllerStateStatusPlaced extends ControllerStateTemplate {
+class ControllerStateStatusPlaced extends ControllerStateStatus {
 
   def allStonesPlaced(status:String): Unit = println("All Stones are already placed.\nTo move a stone use the 'move' command.")
 
@@ -11,4 +11,6 @@ class ControllerStateStatusPlaced extends ControllerStateTemplate {
   override def selectedFieldInvalid(status: String): Unit = Option
 
   override def selectedFieldNotEmpty(status: String): Unit = Option
+
+  override def selectedFieldNotReachable: Unit = Option
 }

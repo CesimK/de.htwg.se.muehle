@@ -1,6 +1,6 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
-class ControllerStsteStatusMoved extends ControllerStateTemplate {
+class ControllerStateStatusMoved extends ControllerStateStatus {
 
   def stonesStillAvailable(status: String): Unit = println("Place all stones before moving one stone.")
 

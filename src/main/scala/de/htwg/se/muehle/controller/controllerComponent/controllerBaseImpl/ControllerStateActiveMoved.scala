@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 
-class ControllerStateActiveMoved extends ControllerStateActiveTemplate {
+class ControllerStateActiveMoved extends ControllerStateActive {
 
   def switchActivePlayerMoved(controller: Controller): Unit = {
 

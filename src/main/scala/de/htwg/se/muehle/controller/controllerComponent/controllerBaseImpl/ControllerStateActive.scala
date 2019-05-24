@@ -1,8 +1,6 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
-import de.htwg.se.muehle.model.playerComponent.Player
-
-trait ControllerStateActiveTemplate {
+trait ControllerStateActive {
 
   def setActive(controller: Controller):Unit = {
     switchActivePlayerPlaced(controller)

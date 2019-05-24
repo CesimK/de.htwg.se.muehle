@@ -1,6 +1,6 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
-trait ControllerStateTemplate {
+trait ControllerStateStatus {
 
   def setStatePlaceStones(status:String):Unit = {
     allStonesPlaced(status)
@@ -11,7 +11,10 @@ trait ControllerStateTemplate {
     stonesStillAvailable(status)
     selectedFieldInvalid(status)
     selectedFieldNotEmpty(status)
+    selectedFieldNotReachable
   }
+
+  def selectedFieldNotReachable: Unit
 
   def allStonesPlaced(status:String): Unit
 

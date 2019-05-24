@@ -12,7 +12,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
   var status:String = ""
   val mills:Mill = Mill()
   val state_Placed = new ControllerStateStatusPlaced
-  val state_Moved = new ControllerStsteStatusMoved
+  val state_Moved = new ControllerStateStatusMoved
   val active_Placed = new ControllerStateActivePlaced
   val active_Moved = new ControllerStateActiveMoved
 

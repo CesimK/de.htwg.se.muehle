@@ -1,6 +1,6 @@
 package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 
-trait GridCreateStrategyTemplate {
+trait GridCreateStrategy {
 
   def createNewGrid(charArray: Array[Char]): Grid = {
     var grid = new Grid(charArray)

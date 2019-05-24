@@ -2,7 +2,7 @@ package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.muehle.model.playerComponent.Player
 
-class ControllerStateActivePlaced extends ControllerStateActiveTemplate {
+class ControllerStateActivePlaced extends ControllerStateActive {
 
   def switchActivePlayerPlaced(controller: Controller): Unit = {
     if (controller.active.name.equals(controller.p1.name)) {

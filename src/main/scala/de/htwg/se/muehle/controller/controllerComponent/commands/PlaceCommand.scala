@@ -13,10 +13,10 @@ class PlaceCommand(controller: Controller, pos:Int) extends Command{
   }
 
   override def undoStep: Unit = {
-    controller.active_Placed.switchActivePlayerPlaced(controller)
     val edit_grid = controller.grid.filled
     edit_grid(pos) = controller.grid.empt_val
     controller.grid = Grid(edit_grid, num_fields = controller.grid.num_fields)
+    controller.active_Placed.switchActivePlayerPlaced(controller)
   }
 
 

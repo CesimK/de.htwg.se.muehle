@@ -1,10 +1,11 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.muehle.controller.controllerComponent.IController
-import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy, Mill}
+import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Mill.Mill
 import de.htwg.se.muehle.model.playerComponent.Player
 import de.htwg.se.muehle.util.{Observable, UndoManager}
-import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
 
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable with IController {
   var active:Player = p1

@@ -9,9 +9,9 @@ object Muehle {
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
-    val player1 = Player("Cesim Keskin", 'W')
+    val player1 = new Player("Cesim Keskin", 'W')
     println("Hello, " + player1.name)
-    val player2 = Player("Christopher Gogl", 'B')
+    val player2 = new Player("Christopher Gogl", 'B')
     println("Hello, " + player2.name)
 
     val field = Grid(init = true)

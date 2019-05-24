@@ -8,6 +8,8 @@ class ControllerStsteStatusMoved extends ControllerStateTemplate {
 
   def selectedFieldNotEmpty(status: String): Unit = println("On this field is already a stone placed.\nChoose another field to place your stone.")
 
+  def selectedFieldNotReachable: Unit = println("Target Field is no neighbour of your selected field.")
+
   override def allStonesPlaced(status: String): Unit = Option
 
   override def slotIsFilled(status: String): Unit = Option

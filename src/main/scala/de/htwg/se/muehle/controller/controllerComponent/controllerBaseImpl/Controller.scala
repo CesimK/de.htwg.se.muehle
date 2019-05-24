@@ -1,17 +1,21 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.muehle.controller.controllerComponent.IController
-import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy, Mill}
 import de.htwg.se.muehle.model.playerComponent.Player
-import de.htwg.se.muehle.util.Observable
+import de.htwg.se.muehle.util.{Observable, UndoManager}
+import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
 
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable with IController {
   var active:Player = p1
   var status:String = ""
+  val mills:Mill = Mill()
   val state_Placed = new ControllerStateStatusPlaced
   val state_Moved = new ControllerStsteStatusMoved
   val active_Placed = new ControllerStateActivePlaced
   val active_Moved = new ControllerStateActiveMoved
+
+  private val undo_manager = new UndoManager
 
   override def newGame():Unit = {
     grid = (new GridCreateGridStrategy).setGrid(grid)
@@ -34,11 +38,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
       notifyObservers
       return
     }
-
-    val edit_grid = grid.filled
-    edit_grid(pos) = active.color
-    grid = Grid(edit_grid, num_fields = grid.num_fields)
-    active_Placed.switchActivePlayerPlaced(this)
+    undo_manager.doStep(new PlaceCommand(this, pos))
     notifyObservers
   }
 
@@ -58,12 +58,19 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
       notifyObservers
       return
     }
-    val edit_grid = grid.filled
-    edit_grid(pos) = active.color
-    edit_grid(src) = grid.empt_val
-    grid = Grid(edit_grid, num_fields = grid.num_fields)
-    active_Moved.switchActivePlayerMoved(this)
+    undo_manager.doStep(new MoveCommand(this, src, pos))
     notifyObservers
   }
 
+  def undo: Unit = {
+    undo_manager.undoStep
+    notifyObservers
+  }
+
+  def redo: Unit = {
+    undo_manager.redoStep
+    notifyObservers
+  }
+
+  def isNeighbour(src:Int, dest:Int): Boolean = mills.vertex(src).contains(dest)
 }

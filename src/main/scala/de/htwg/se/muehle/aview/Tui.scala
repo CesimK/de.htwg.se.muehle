@@ -12,8 +12,8 @@ class Tui (val controller: Controller) extends Observer{
       case "q" | "quit"          => println("Closing the game. All unsaved changes will be lost.")
       case "n" | "new" | "reset" => controller.newGame()
       case "m" | "move"          => if (tokens.length == 3) controller.moveStone(tokens(1).toInt - 1, tokens(2).toInt - 1)
-      case "u" | "undo"          => println("Undo the last turn")
-      case "r" | "redo"          => println("Redo the last turn")
+      case "u" | "undo"          => controller.undo
+      case "r" | "redo"          => controller.redo
       case "s" | "save"          => println("Save the game")
       case "l" | "load"          => println("Load the game")
       case "p" | "place"         => if (tokens.length == 2) controller.placeStone(tokens(1).toInt - 1)

@@ -23,7 +23,6 @@ object Mill{
 
 case class Mill(var mills: List[(Int, Int, Int)] = List()) {
   var vertex:Map[Int, List[Int]] = Map[Int, List[Int]]()
-  import Mill._
   connectMills(mills)
   parse_file(vertex)
   }

@@ -33,14 +33,18 @@ class TuiSpec extends WordSpec with Matchers {
         tui.process_cmd("load") should be ()
         tui.process_cmd("sur") should be ()
         tui.process_cmd("surrender") should be ()
-        tui.process_cmd("p 1") should be ()
-        tui.process_cmd("place 2") should be ()
+        tui.process_cmd("p") should be ()
+        tui.process_cmd("place") should be ()
         tui.process_cmd("h") should be ()
         tui.process_cmd("?") should be ()
         tui.process_cmd("help") should be ()
       }
       "An input that isn't in the command set won't trigger an error" in {
         noException should be thrownBy tui.process_cmd("Not in Set")
+      }
+      "Some commands must be called with arguments" in {
+        tui.process_cmd("move 1 2") should be ()
+        tui.process_cmd("p 1") should be ()
       }
       "When a status is available the TUI prints it" in {
         controller.status = "A Status Message"

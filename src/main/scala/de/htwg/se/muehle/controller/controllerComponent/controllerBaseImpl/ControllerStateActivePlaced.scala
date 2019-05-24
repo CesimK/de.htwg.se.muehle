@@ -6,10 +6,10 @@ class ControllerStateActivePlaced extends ControllerStateActive {
 
   def switchActivePlayerPlaced(controller: Controller): Unit = {
     if (controller.active.name.equals(controller.p1.name)) {
-      controller.p1 = Player(controller.p1.name, controller.p1.color, controller.p1.placed + 1)
+      controller.p1 = new Player(controller.p1.name, controller.p1.color, controller.p1.placed + 1)
       controller.active = controller.p2
     } else {
-      controller.p2 = Player(controller.p2.name, controller.p2.color, controller.p2.placed + 1)
+      controller.p2 = new Player(controller.p2.name, controller.p2.color, controller.p2.placed + 1)
       controller.active = controller.p1
     }
   }

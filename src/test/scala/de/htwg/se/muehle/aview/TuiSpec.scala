@@ -1,7 +1,8 @@
 package de.htwg.se.muehle.aview
 
-import de.htwg.se.muehle.controller.Controller
-import de.htwg.se.muehle.model.{Grid, Player}
+import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Grid
+import de.htwg.se.muehle.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiSpec extends WordSpec with Matchers {
@@ -40,6 +41,11 @@ class TuiSpec extends WordSpec with Matchers {
       }
       "An input that isn't in the command set won't trigger an error" in {
         noException should be thrownBy tui.process_cmd("Not in Set")
+      }
+      "When a status is available the TUI prints it" in {
+        controller.status = "A Status Message"
+        tui.update
+        controller.status should be ("")
       }
     }
   }

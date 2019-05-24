@@ -1,3 +1,5 @@
+package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
+
 import scala.io.Source
 
 object Mill{
@@ -11,3 +13,4 @@ case class Mill(var mills: List[(Int, Int, Int)] = List()) {
   import Mill._
   connectMills(mills)
 }
+

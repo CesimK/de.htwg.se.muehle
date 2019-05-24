@@ -1,6 +1,6 @@
 package de.htwg.se.muehle.aview
 
-import de.htwg.se.muehle.controller.Controller
+import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.muehle.util.Observer
 
 class Tui (val controller: Controller) extends Observer{
@@ -10,13 +10,13 @@ class Tui (val controller: Controller) extends Observer{
     val tokens = cmd.split(" ")
     tokens(0) match {
       case "q" | "quit"          => println("Closing the game. All unsaved changes will be lost.")
-      case "n" | "new" | "reset" => controller.createEmptyGrid()
-      case "m" | "move"          => println("Move a Stone to a new position.")
+      case "n" | "new" | "reset" => controller.newGame()
+      case "m" | "move"          => if (tokens.length == 3) controller.moveStone(tokens(1).toInt - 1, tokens(2).toInt - 1)
       case "u" | "undo"          => println("Undo the last turn")
       case "r" | "redo"          => println("Redo the last turn")
       case "s" | "save"          => println("Save the game")
       case "l" | "load"          => println("Load the game")
-      case "p" | "place"         => controller.placeStone(tokens(1).toInt - 1)
+      case "p" | "place"         => if (tokens.length == 2) controller.placeStone(tokens(1).toInt - 1)
       case "sur" | "surrender"   => println("Give up")
       case "h" | "?" | "help"    => println(this.help_text())
       case _                     => println("This command does not exists.\nPlease see the help which commands are allowed.")
@@ -29,6 +29,8 @@ class Tui (val controller: Controller) extends Observer{
         "\t<h|help> <command>\n\n" +
         "q | quit:\n" +
         "\tClose the game. The actual progress won't be saved. All changes are lost.\n\n" +
+        "f | field:\n" +
+        "\tCreate an empty Field.\n\n" +
         "n | new:\n"+
         "\tStart a new game. The current progress get lost and won't be saved.\n\n" +
         "m | move:\n"+
@@ -48,5 +50,14 @@ class Tui (val controller: Controller) extends Observer{
         "h | ? | help:\n" +
         "\tShows this help text."
 
-  override def update: Unit = println(controller.gridToString)
+  override def update: Unit = {
+    if (!controller.status.equals("")) {
+      println("Status:\n" + controller.status)
+      controller.status = ""
+    }
+    println("Next Player: " + controller.active)
+    println("Stones placed: " + controller.active.placed)
+    println("Stones left: " + controller.active.stones)
+    println(controller.gridToString)
+  }
 }

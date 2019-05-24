@@ -1,8 +1,9 @@
 package de.htwg.se.muehle
 
-import de.htwg.se.muehle.model.{Grid, Player}
-import de.htwg.se.muehle.controller.Controller
+import controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.muehle.aview.Tui
+import model.gridComponent.gridBaseImpl.Grid
+import model.playerComponent.Player
 
 object Muehle {
 
@@ -13,7 +14,7 @@ object Muehle {
     val player2 = Player("Christopher Gogl", 'B')
     println("Hello, " + player2.name)
 
-    val field = Grid()
+    val field = Grid(init = true)
     val controller = new Controller(field, player1, player2)
     val tui = new Tui(controller)
     do {

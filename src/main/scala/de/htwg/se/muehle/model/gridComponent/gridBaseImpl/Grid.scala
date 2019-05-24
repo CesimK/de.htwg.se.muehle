@@ -1,11 +1,13 @@
-package de.htwg.se.muehle.model
+package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 
+import de.htwg.se.muehle.model.gridComponent.IGrid
 
-case class Grid(var filled:Array[Char] = Array.empty, init:Boolean = false, num_fields:Int = 24) {
+case class Grid(var filled:Array[Char] = Array.empty, init:Boolean = false, num_fields:Int = 24) extends IGrid{
   val empty_field = "O"
+  val empt_val = 'O'
   if (init) filled = empty_grid
 
-  def empty_grid:Array[Char] = (empty_field * num_fields).toCharArray
+  override def empty_grid:Array[Char] = (empty_field * num_fields).toCharArray
 
   override def toString: String = {
     val row1 = "x-----x-----x\n"
@@ -18,4 +20,6 @@ case class Grid(var filled:Array[Char] = Array.empty, init:Boolean = false, num_
     } field = field.replaceFirst("x", filled(index).toString)
     field
   }
+
+  override def is_free(pos:Int): Boolean = filled(pos).equals(empt_val)
 }

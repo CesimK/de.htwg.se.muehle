@@ -1,4 +1,4 @@
-package de.htwg.se.muehle.model
+package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 
 import org.scalatest.{Matchers, WordSpec}
 
@@ -19,6 +19,13 @@ class GridSpec extends WordSpec with Matchers {
           "O-----O-----O\n"
         grid.toString should be (def_out)
       }
+    }
+  }
+  "A Grid that has already stones placed" should {
+    "check if it is free or not" in {
+      val grid = new Grid((("W"*9)+("B"*9)+("O"*6)).toCharArray)
+      grid.is_free(0) should be (false)
+      grid.is_free(23) should be (true)
     }
   }
 }

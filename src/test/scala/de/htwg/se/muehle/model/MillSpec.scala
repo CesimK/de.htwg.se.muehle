@@ -1,5 +1,6 @@
 package de.htwg.se.muehle.model
 
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Mill
 import org.scalatest.{Matchers, WordSpec}
 
 class MillSpec extends WordSpec with Matchers {

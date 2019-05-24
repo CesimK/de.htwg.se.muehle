@@ -6,7 +6,13 @@ import org.scalatest.{Matchers, WordSpec}
 abstract class ControllerStateStatusPlacedSpec extends WordSpec with Matchers with ControllerStateStatus{
   "A State" when { "new" should {
     val status:String = ""
-    "all Stones are Placed" in {
+    "All stones placed" in {
+      allStonesPlaced(status) should be ("All Stones are already placed.\nTo move a stone use the 'move' command.")
+    }
+    "slot is filled" in {
+      slotIsFilled(status) should be ("This field is already blocked.\nSelect another field to place your stone.")
+    }
+    "stones are still available" in {
       stonesStillAvailable(status) should be (Option)
     }
     "slot is filled" in {
@@ -14,6 +20,9 @@ abstract class ControllerStateStatusPlacedSpec extends WordSpec with Matchers wi
     }
     "selected field not reachable" in {
       selectedFieldNotEmpty(status) should be (Option)
+    }
+    "selected field not reachable" in {
+      selectedFieldNotReachable should be (Option)
     }
   }}
 

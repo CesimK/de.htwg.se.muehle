@@ -6,8 +6,16 @@ import de.htwg.se.muehle.util.Command
 class MoveCommand(controller: Controller, src:Int, pos:Int) extends Command {
   override def doStep(): Unit = {
     val edit_grid = controller.grid.filled
-    edit_grid(pos) = controller.active.color
-    edit_grid(src) = controller.grid.empt_val
+    if (controller.active.jump) {
+      edit_grid(pos) = controller.active.color
+      edit_grid(src) = controller.grid.empt_val
+    } else if (controller.isNeighbour(src, pos)) {
+      edit_grid(pos) = controller.active.color
+      edit_grid(src) = controller.grid.empt_val
+    } else {
+      controller.state_Moved.selectedFieldNotReachable
+      return
+    }
     controller.grid = Grid(edit_grid, num_fields = controller.grid.num_fields)
     controller.active_Moved.switchActivePlayerMoved(controller)
   }

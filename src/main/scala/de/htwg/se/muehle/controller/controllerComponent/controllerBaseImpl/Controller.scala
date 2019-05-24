@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.muehle.controller.controllerComponent.IController
-import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy, Mill}
 import de.htwg.se.muehle.model.playerComponent.Player
 import de.htwg.se.muehle.util.{Observable, UndoManager}
 import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
@@ -9,6 +9,7 @@ import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, P
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable {
   var active:Player = p1
   var status:String = ""
+  val mills:Mill = Mill()
   val state_Placed = new ControllerStateStatusPlaced
   val state_Moved = new ControllerStsteStatusMoved
   val active_Placed = new ControllerStateActivePlaced
@@ -69,4 +70,6 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Observable
     undo_manager.redoStep
     notifyObservers
   }
+
+  def isNeighbour(src:Int, dest:Int): Boolean = mills.vertex(src).contains(dest)
 }

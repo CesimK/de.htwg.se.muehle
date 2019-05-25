@@ -82,10 +82,10 @@ class Canvas extends Panel{
     val offset = gap/8
     val length = gap/4*3
 
-    g.setColor(Color.RED)
-    drawGrid(g, gap, 7)
+    //g.setColor(Color.RED)
+    //drawGrid(g, gap, 7)
     g.setColor(Color.BLACK)
-    g.setStroke(new BasicStroke(4F))
+    g.setStroke(new BasicStroke((size.height*0.005).asInstanceOf[Float]))
     drawOutConn(g, gap/2, gap)
     drawCross(g, size.height, gap)
     drawCircleGrid(g, offset, length, gap)

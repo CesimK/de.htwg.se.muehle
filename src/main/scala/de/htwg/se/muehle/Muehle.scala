@@ -23,5 +23,6 @@ object Muehle {
       input = scala.io.StdIn.readLine()
       tui.process_cmd(input)
     } while (input != "q" && input != "quit")
+    System.exit(0)
   }
 }

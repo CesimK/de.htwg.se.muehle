@@ -12,6 +12,7 @@ class SrcSelect extends Event
 class DestSelect extends Event
 
 class Gui(controller: Controller) extends MainFrame{
+  val outFont = new Font("Ariel", java.awt.Font.PLAIN, 24)
   listenTo(controller)
   title = "HTWG Muehle"
   menuBar = new MenuBar {
@@ -25,14 +26,44 @@ class Gui(controller: Controller) extends MainFrame{
       contents += new MenuItem(Action("Undo") {controller.undo})
       contents += new MenuItem(Action("Redo") {controller.redo})
     }
+    contents += new Menu("Option") {
+      mnemonic = Key.O
+      contents += new MenuItem(Action("Show Fieldnumber") {
+        canvas.numb = !canvas.numb
+        redraw()
+      })
+    }
   }
-  val canvas = new Canvas {
+  val activeLabel = new Label{
+    text = "Active Player:"
+    font = outFont
+  }
+  val activePlayer = new Label {
+    text = controller.active.name
+    font = outFont
+  }
+
+  val statistics = new GridPanel(1, 2) {
+    contents += activeLabel
+    contents += activePlayer
+  }
+  val p2Label = new Label(controller.p2.name)
+  val canvas = new Canvas(controller) {
     preferredSize = new Dimension(700, 700)
   }
 
   contents = new BorderPanel {
+    layout(statistics) = North
     layout(canvas) = Center
   }
+  reactions += {
+    case _ => redraw()
+  }
   visible = true
-  canvas.redraw()
+  redraw()
+
+  def redraw(): Unit = {
+    canvas.redraw()
+    activePlayer.text = controller.active.name
+  }
 }

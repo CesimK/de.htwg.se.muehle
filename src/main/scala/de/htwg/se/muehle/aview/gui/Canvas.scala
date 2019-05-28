@@ -2,10 +2,14 @@ package de.htwg.se.muehle.aview.gui
 
 import java.awt.{BasicStroke, Color, Graphics2D}
 
+import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
+
 import scala.swing._
 
-class Canvas extends Panel{
+class Canvas(controller: Controller) extends Panel{
   val BACKCOLOR = new Color(200,200,100)
+  var counter = 0
+  var numb = false
   def drawGrid(g: Graphics2D, gap:Int, size:Int) = {
     for (r <- 1 to size) {
       val t:Int = gap*r
@@ -55,7 +59,38 @@ class Canvas extends Panel{
     g.fillOval(w, h, l, l)
     g.setColor(Color.BLACK)
     g.drawOval(w, h, l, l)
+    val w2 = w + l/8
+    val h2 = h + l/8
+    val l2 = l - l/4
+    if (controller.grid.filled(counter) == controller.p1.color) {
+      drawWhite(g, w2, h2, l2)
+    } else if (controller.grid.filled(counter) == controller.p2.color) {
+      drawBlack(g, w2, h2, l2)
+    }
+    if (numb) {
+      g.setColor(Color.RED)
+      g.drawString((counter+1).toString,w,h)
+    }
+    g.setColor(Color.BLACK)
+    counter += 1
   }
+
+  def drawWhite(g: Graphics2D, w: Int, h:Int, l:Int) = {
+    g.setColor(Color.WHITE)
+    g.fillOval(w, h, l,l)
+    g.setColor(Color.LIGHT_GRAY)
+    g.drawOval(w, h, l, l)
+    g.drawOval(w+l/4,h+l/4, l/2, l/2)
+  }
+
+  def drawBlack(g: Graphics2D, w: Int, h:Int, l:Int) = {
+    g.setColor(Color.BLACK)
+    g.fillOval(w, h, l,l)
+    g.setColor(Color.DARK_GRAY)
+    g.drawOval(w, h, l, l)
+    g.drawOval(w+l/4,h+l/4, l/2, l/2)
+  }
+
   def drawOutConn(g:Graphics2D, offset:Int, gap:Int) = {
     for (r <- 0 to 2) {
       var end = r * gap
@@ -89,7 +124,10 @@ class Canvas extends Panel{
     drawOutConn(g, gap/2, gap)
     drawCross(g, size.height, gap)
     drawCircleGrid(g, offset, length, gap)
+    counter = 0
   }
 
-  def redraw() = repaint()
+  def redraw() = {
+    repaint()
+  }
 }

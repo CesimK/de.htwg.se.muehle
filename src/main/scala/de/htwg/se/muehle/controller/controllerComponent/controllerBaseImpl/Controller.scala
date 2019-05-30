@@ -52,8 +52,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
       publish(new InvalidTurn)
       return
     }
-    if (!grid.filled(src).equals(active.color)) {
-      state_Moved.selectedFieldInvalid(status)
+    if (checkField(pos)) {
       publish(new InvalidTurn)
       return
     }

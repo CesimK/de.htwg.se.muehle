@@ -1,18 +1,18 @@
 package de.htwg.se.muehle.aview.gui
 
 import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.muehle.util.{GridChanged, InvalidTurn}
 
+import scala.swing.BorderPanel.Position.{Center, North, South}
 import scala.swing._
 import scala.swing.event._
-import java.awt.Color
-
-import scala.swing.BorderPanel.Position.{Center, East, North, South, West}
 
 class SrcSelect extends Event
 class DestSelect extends Event
 
 class Gui(controller: Controller) extends MainFrame{
   val outFont = new Font("Ariel", java.awt.Font.PLAIN, 24)
+  val statFont = new Font("Ariel", java.awt.Font.PLAIN, 16)
   var moveFrom = -1
 
   title = "HTWG Muehle"
@@ -54,6 +54,7 @@ class Gui(controller: Controller) extends MainFrame{
   }
   val status = new Label {
     text = controller.status
+    font = statFont
   }
 
   contents = new BorderPanel {
@@ -82,7 +83,8 @@ class Gui(controller: Controller) extends MainFrame{
         else moveFrom = -1
       }
     }
-    case _ => redraw()
+    case event:GridChanged => redraw()
+    case event:InvalidTurn => redraw()
   }
   centerOnScreen()
   visible = true
@@ -96,8 +98,6 @@ class Gui(controller: Controller) extends MainFrame{
 
   def check_clicked(point: Point):Int = {
     val gap = size.width/7
-    println(size, gap)
-
     val row:Int = point.y/gap
     val col:Int = point.x/gap
     var offset = 0

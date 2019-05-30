@@ -57,9 +57,9 @@ class Tui (val controller: Controller) extends Reactor{
         "\tShows this help text."
 
   def update: Unit = {
-    if (!controller.status.equals("")) {
+    if (!controller.status.equals(" ")) {
       println("Status:\n" + controller.status)
-      controller.status = ""
+      controller.status = " "
     }
     println("Next Player: " + controller.active)
     println("Stones placed: " + controller.active.placed)

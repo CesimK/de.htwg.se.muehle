@@ -11,7 +11,7 @@ import scala.swing.Publisher
 
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher with IController {
   var active:Player = p1
-  var status:String = ""
+  var status:String = " "
   var highlight = Array.fill[Boolean](grid.filled.length)(false)
   val mills:Mill = Mill()
   val state_Placed = new ControllerStateStatusPlaced
@@ -33,12 +33,12 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
 
   override def placeStone(pos:Int):Unit = {
     if (active.stones != 9 || active.placed >= 9) {
-      state_Placed.allStonesPlaced(status)
+      state_Placed.allStonesPlaced(this)
       publish(new InvalidTurn)
       return
     }
     if (grid.filled(pos) != grid.empty_grid(pos)) {
-      state_Placed.slotIsFilled(status)
+      state_Placed.slotIsFilled(this)
       publish(new InvalidTurn)
       return
     }
@@ -48,17 +48,17 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
 
   override def moveStone(src:Int, pos:Int):Unit = {
     if (active.placed != 9) {
-      state_Moved.stonesStillAvailable(status)
+      state_Moved.stonesStillAvailable(this)
       publish(new InvalidTurn)
       return
     }
     if (!grid.filled(src).equals(active.color)) {
-      state_Moved.selectedFieldInvalid(status)
+      state_Moved.selectedFieldInvalid(this)
       publish(new InvalidTurn)
       return
     }
     if (!grid.is_free(pos)) {
-      state_Moved.selectedFieldNotEmpty(status)
+      state_Moved.selectedFieldNotEmpty(this)
       publish(new InvalidTurn)
       return
     }
@@ -80,7 +80,7 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
   def checkField(pos:Int):Boolean = {
     if (grid.filled(pos) == active.color) true
     else {
-      state_Moved.selectedFieldInvalid(status)
+      state_Moved.selectedFieldInvalid(this)
       false
     }
   }

@@ -2,27 +2,27 @@ package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 trait ControllerStateStatus {
 
-  def setStatePlaceStones(status:String):Unit = {
-    allStonesPlaced(status)
-    slotIsFilled(status)
+  def setStatePlaceStones(controller: Controller):Unit = {
+    allStonesPlaced(controller)
+    slotIsFilled(controller)
   }
 
-  def setStateMoveStones(status:String):Unit = {
-    stonesStillAvailable(status)
-    selectedFieldInvalid(status)
-    selectedFieldNotEmpty(status)
-    selectedFieldNotReachable
+  def setStateMoveStones(controller: Controller):Unit = {
+    stonesStillAvailable(controller)
+    selectedFieldInvalid(controller)
+    selectedFieldNotEmpty(controller)
+    selectedFieldNotReachable(controller)
   }
 
-  def selectedFieldNotReachable: Unit
+  def selectedFieldNotReachable(controller: Controller): Unit
 
-  def allStonesPlaced(status:String): Unit
+  def allStonesPlaced(controller: Controller): Unit
 
-  def slotIsFilled(status:String): Unit
+  def slotIsFilled(controller: Controller): Unit
 
-  def stonesStillAvailable(status:String): Unit
+  def stonesStillAvailable(controller: Controller): Unit
 
-  def selectedFieldInvalid(status:String): Unit
+  def selectedFieldInvalid(controller: Controller): Unit
 
-  def selectedFieldNotEmpty(status:String): Unit
+  def selectedFieldNotEmpty(controller: Controller): Unit
 }

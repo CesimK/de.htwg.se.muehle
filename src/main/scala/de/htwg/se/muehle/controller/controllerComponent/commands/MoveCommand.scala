@@ -13,7 +13,7 @@ class MoveCommand(controller: Controller, src:Int, pos:Int) extends Command {
       edit_grid(pos) = controller.active.color
       edit_grid(src) = controller.grid.empt_val
     } else {
-      controller.state_Moved.selectedFieldNotReachable
+      controller.state_Moved.selectedFieldNotReachable(controller)
       return
     }
     controller.grid = Grid(edit_grid, num_fields = controller.grid.num_fields)

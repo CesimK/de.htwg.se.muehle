@@ -47,7 +47,7 @@ class TuiSpec extends WordSpec with Matchers {
       "When a status is available the TUI prints it" in {
         controller.status = "A Status Message"
         tui.update
-        controller.status should be ("")
+        controller.status should be (" ")
       }
     }
   }

@@ -13,7 +13,8 @@ class DestSelect extends Event
 
 class Gui(controller: Controller) extends MainFrame{
   val outFont = new Font("Ariel", java.awt.Font.PLAIN, 24)
-  listenTo(controller)
+  var moveFrom = -1
+
   title = "HTWG Muehle"
   menuBar = new MenuBar {
     contents += new Menu("File") {
@@ -47,23 +48,67 @@ class Gui(controller: Controller) extends MainFrame{
     contents += activeLabel
     contents += activePlayer
   }
-  val p2Label = new Label(controller.p2.name)
+
   val canvas = new Canvas(controller) {
     preferredSize = new Dimension(700, 700)
+  }
+  val status = new Label {
+    text = controller.status
   }
 
   contents = new BorderPanel {
     layout(statistics) = North
     layout(canvas) = Center
+    layout(status) = South
   }
+
+  listenTo(controller)
+  listenTo(canvas.mouse.clicks)
   reactions += {
+    case MouseClicked(_,point,_,_,_) => {
+      val pos = check_clicked(point)
+      if (pos >= 0) {
+        if (controller.active.placed < 9) controller.placeStone(pos)
+        else if (moveFrom == -1) {
+          if (controller.checkField(pos)) {
+            moveFrom = pos
+            controller.highlight(pos) = true
+          }
+        }
+        else if (moveFrom >= 0 && moveFrom <= controller.grid.filled.length) {
+          controller.moveStone(moveFrom, pos)
+          moveFrom = -1
+        }
+        else moveFrom = -1
+      }
+    }
     case _ => redraw()
   }
+  centerOnScreen()
   visible = true
   redraw()
 
   def redraw(): Unit = {
     canvas.redraw()
     activePlayer.text = controller.active.name
+    status.text = controller.status
+  }
+
+  def check_clicked(point: Point):Int = {
+    val gap = size.width/7
+    println(size, gap)
+
+    val row:Int = point.y/gap
+    val col:Int = point.x/gap
+    var offset = 0
+    if (row > 3) offset = 3
+    var pos = -1
+    row match {
+      case 0 | 6 => if (List(0,3,6).contains(col)) pos = row*3 + List(0,3,6).indexOf(col) + offset
+      case 1 | 5 => if (List(1,3,5).contains(col)) pos = row*3 + List(1,3,5).indexOf(col) + offset
+      case 2 | 4 => if (List(2,3,4).contains(col)) pos = row*3 + List(2,3,4).indexOf(col) + offset
+      case 3     => if (List(0,1,2,4,5,6).contains(col)) pos = row*3 + List(0,1,2,4,5,6).indexOf(col)
+    }
+    pos
   }
 }

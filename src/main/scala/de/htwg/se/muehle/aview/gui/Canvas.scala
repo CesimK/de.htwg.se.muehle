@@ -8,6 +8,7 @@ import scala.swing._
 
 class Canvas(controller: Controller) extends Panel{
   val BACKCOLOR = new Color(200,200,100)
+  val HIGHLIGHT = new Color(34,139,34)
   var counter = 0
   var numb = false
   def drawGrid(g: Graphics2D, gap:Int, size:Int) = {
@@ -55,7 +56,11 @@ class Canvas(controller: Controller) extends Panel{
   }
 
   def drawCircle(g: Graphics2D, h:Int, w:Int, l:Int) = {
-    g.setColor(BACKCOLOR)
+    if (controller.highlight(counter)) {
+      g.setColor(HIGHLIGHT)
+      controller.highlight(counter) = false
+    }
+    else g.setColor(BACKCOLOR)
     g.fillOval(w, h, l, l)
     g.setColor(Color.BLACK)
     g.drawOval(w, h, l, l)

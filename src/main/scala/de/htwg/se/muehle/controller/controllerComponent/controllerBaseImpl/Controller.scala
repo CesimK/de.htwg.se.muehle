@@ -12,6 +12,7 @@ import scala.swing.Publisher
 class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher with IController {
   var active:Player = p1
   var status:String = ""
+  var highlight = Array.fill[Boolean](grid.filled.length)(false)
   val mills:Mill = Mill()
   val state_Placed = new ControllerStateStatusPlaced
   val state_Moved = new ControllerStateStatusMoved
@@ -76,4 +77,11 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
   }
 
   def isNeighbour(src:Int, dest:Int): Boolean = mills.vertex(src).contains(dest)
+  def checkField(pos:Int):Boolean = {
+    if (grid.filled(pos) == active.color) true
+    else {
+      state_Moved.selectedFieldInvalid(status)
+      false
+    }
+  }
 }

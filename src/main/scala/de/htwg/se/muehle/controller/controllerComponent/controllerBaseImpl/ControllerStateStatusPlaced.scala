@@ -2,15 +2,15 @@ package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 class ControllerStateStatusPlaced extends ControllerStateStatus {
 
-  def allStonesPlaced(status:String): Unit = println("All Stones are already placed.\nTo move a stone use the 'move' command.")
+  def allStonesPlaced(controller: Controller): Unit = controller.status = "All Stones are already placed.\nTo move a stone use the 'move' command."
 
-  def slotIsFilled(status: String): Unit = println("This field is already blocked.\nSelect another field to place your stone.")
+  def slotIsFilled(controller: Controller): Unit = controller.status = "This field is already blocked.\nSelect another field to place your stone."
 
-  override def stonesStillAvailable(status: String): Unit = Option
+  override def stonesStillAvailable(controller: Controller): Unit = Option
 
-  override def selectedFieldInvalid(status: String): Unit = Option
+  override def selectedFieldInvalid(controller: Controller): Unit = Option
 
-  override def selectedFieldNotEmpty(status: String): Unit = Option
+  override def selectedFieldNotEmpty(controller: Controller): Unit = Option
 
-  override def selectedFieldNotReachable: Unit = Option
+  override def selectedFieldNotReachable(controller: Controller): Unit = Option
 }

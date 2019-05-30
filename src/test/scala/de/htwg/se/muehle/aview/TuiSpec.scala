@@ -16,8 +16,6 @@ class TuiSpec extends WordSpec with Matchers {
   "It can process some commands" when {
     "The TUI process commands it " should {
       "The command execution returns nothing for all commands." in {
-        tui.process_cmd("q") should be ()
-        tui.process_cmd("quit") should be ()
         tui.process_cmd("n") should be ()
         tui.process_cmd("new") should be ()
         tui.process_cmd("reset") should be ()
@@ -49,7 +47,7 @@ class TuiSpec extends WordSpec with Matchers {
       "When a status is available the TUI prints it" in {
         controller.status = "A Status Message"
         tui.update
-        controller.status should be ("")
+        controller.status should be (" ")
       }
     }
   }

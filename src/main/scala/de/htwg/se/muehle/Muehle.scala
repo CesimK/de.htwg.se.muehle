@@ -2,6 +2,7 @@ package de.htwg.se.muehle
 
 import controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.muehle.aview.Tui
+import de.htwg.se.muehle.aview.gui.Gui
 import model.gridComponent.gridBaseImpl.Grid
 import model.playerComponent.Player
 
@@ -17,9 +18,11 @@ object Muehle {
     val field = Grid(init = true)
     val controller = new Controller(field, player1, player2)
     val tui = new Tui(controller)
+    val gui = new Gui(controller)
     do {
       input = scala.io.StdIn.readLine()
       tui.process_cmd(input)
     } while (input != "q" && input != "quit")
+    System.exit(0)
   }
 }

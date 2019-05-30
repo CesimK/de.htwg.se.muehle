@@ -1,10 +1,16 @@
 package de.htwg.se.muehle.aview
 
 import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
-import de.htwg.se.muehle.util.Observer
+import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, Observer}
 
-class Tui (val controller: Controller) extends Observer{
-  controller.add(this)
+import scala.swing.Reactor
+
+class Tui (val controller: Controller) extends Reactor{
+  listenTo(controller)
+  reactions += {
+    case event:GridChanged => update
+    case event:InvalidTurn => update
+  }
 
   def process_cmd(cmd:String):Unit = {
     val tokens = cmd.split(" ")
@@ -50,14 +56,15 @@ class Tui (val controller: Controller) extends Observer{
         "h | ? | help:\n" +
         "\tShows this help text."
 
-  override def update: Unit = {
-    if (!controller.status.equals("")) {
+  def update: Unit = {
+    if (!controller.status.equals(" ")) {
       println("Status:\n" + controller.status)
-      controller.status = ""
+      controller.status = " "
     }
     println("Next Player: " + controller.active)
     println("Stones placed: " + controller.active.placed)
     println("Stones left: " + controller.active.stones)
     println(controller.gridToString)
   }
+
 }

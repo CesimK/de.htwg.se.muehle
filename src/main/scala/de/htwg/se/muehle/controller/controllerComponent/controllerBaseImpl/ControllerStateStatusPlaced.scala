@@ -6,11 +6,11 @@ class ControllerStateStatusPlaced extends ControllerStateStatus {
 
   def slotIsFilled(controller: Controller): Unit = controller.status = "This field is already blocked.\nSelect another field to place your stone."
 
-  override def stonesStillAvailable(controller: Controller): Unit = Option
+  override def stonesStillAvailable(controller: Controller): Unit = controller.status = ""
 
-  override def selectedFieldInvalid(controller: Controller): Unit = Option
+  override def selectedFieldInvalid(controller: Controller): Unit = controller.status = ""
 
-  override def selectedFieldNotEmpty(controller: Controller): Unit = Option
+  override def selectedFieldNotEmpty(controller: Controller): Unit = controller.status = ""
 
-  override def selectedFieldNotReachable(controller: Controller): Unit = Option
+  override def selectedFieldNotReachable(controller: Controller): Unit = controller.status = ""
 }

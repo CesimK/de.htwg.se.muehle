@@ -10,7 +10,7 @@ class ControllerStateStatusMoved extends ControllerStateStatus {
 
   def selectedFieldNotReachable(controller: Controller): Unit = controller.status = "Target Field is no neighbour of your selected field."
 
-  override def allStonesPlaced(controller: Controller): Unit = Option
+  override def allStonesPlaced(controller: Controller): Unit = controller.status = ""
 
-  override def slotIsFilled(controller: Controller): Unit = Option
+  override def slotIsFilled(controller: Controller): Unit = controller.status = ""
 }

@@ -12,6 +12,6 @@ class ControllerStateActiveMoved extends ControllerStateActive {
     }
   }
 
-  override def switchActivePlayerPlaced(controller: Controller): Unit = Option
+  override def switchActivePlayerPlaced(controller: Controller): Unit = controller.active = null
 
 }

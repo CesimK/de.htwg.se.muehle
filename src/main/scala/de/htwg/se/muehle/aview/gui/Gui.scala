@@ -78,10 +78,12 @@ class Gui(controller: Controller) extends MainFrame{
         }
         else if (moveFrom >= 0 && moveFrom <= controller.grid.filled.length) {
           controller.moveStone(moveFrom, pos)
+          controller.highlight(moveFrom) = false
           moveFrom = -1
         }
         else moveFrom = -1
       }
+      redraw()
     }
     case event:GridChanged => redraw()
     case event:InvalidTurn => redraw()

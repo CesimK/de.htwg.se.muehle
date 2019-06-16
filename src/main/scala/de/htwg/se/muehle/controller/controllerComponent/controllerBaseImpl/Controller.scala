@@ -66,17 +66,17 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
     publish(new GridChanged)
   }
 
-  def undo: Unit = {
+  override def undo: Unit = {
     undo_manager.undoStep
     publish(new GridChanged)
   }
 
-  def redo: Unit = {
+  override def redo: Unit = {
     undo_manager.redoStep
     publish(new GridChanged)
   }
 
-  def isNeighbour(src:Int, dest:Int): Boolean = mills.vertex(src).contains(dest)
+  override def isNeighbour(src:Int, dest:Int): Boolean = mills.vertex(src).contains(dest)
   def checkField(pos:Int):Boolean = {
     if (grid.filled(pos) == active.color) true
     else {

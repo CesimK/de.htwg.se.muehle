@@ -6,10 +6,10 @@ import org.scalatest.{Matchers, WordSpec}
 
 class GridCreateGridStrategySpec extends WordSpec with Matchers{
   "A Strategy" when { "new" should {
-    val grid = Grid(init = true)
+    val grid = new Grid
     val strategy_grid = new GridCreateGridStrategy
     "should create new Grid" in {
-      strategy_grid.setGrid(grid) shouldBe(true)
+      strategy_grid.setGrid(grid) should be(Grid(init = true))
     }
   }}
 }

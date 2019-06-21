@@ -1,6 +1,6 @@
 package de.htwg.se.muehle.aview.gui
 
-import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.muehle.controller.controllerComponent.IController
 import de.htwg.se.muehle.util.{GridChanged, InvalidTurn}
 
 import scala.swing.BorderPanel.Position.{Center, North, South}
@@ -10,7 +10,7 @@ import scala.swing.event._
 class SrcSelect extends Event
 class DestSelect extends Event
 
-class Gui(controller: Controller) extends MainFrame{
+class Gui(controller: IController) extends MainFrame{
   val outFont = new Font("Ariel", java.awt.Font.PLAIN, 24)
   val statFont = new Font("Ariel", java.awt.Font.PLAIN, 16)
   var moveFrom = -1

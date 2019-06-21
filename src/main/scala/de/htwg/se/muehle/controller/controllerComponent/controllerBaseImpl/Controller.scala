@@ -2,6 +2,7 @@ package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.muehle.controller.controllerComponent.IController
 import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
+import de.htwg.se.muehle.model.gridComponent.IGrid
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Mill.Mill
 import de.htwg.se.muehle.model.playerComponent.Player
@@ -77,7 +78,8 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
   }
 
   override def isNeighbour(src:Int, dest:Int): Boolean = mills.vertex(src).contains(dest)
-  def checkField(pos:Int):Boolean = {
+
+  override def checkField(pos:Int):Boolean = {
     if (grid.filled(pos) == active.color) true
     else {
       state_Moved.selectedFieldInvalid(this)

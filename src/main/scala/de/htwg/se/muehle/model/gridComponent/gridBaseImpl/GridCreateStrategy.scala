@@ -1,5 +1,7 @@
 package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 
+import de.htwg.se.muehle.model.gridComponent.IGrid
+
 trait GridCreateStrategy {
 
   def createNewGrid(charArray: Array[Char]): Grid = {
@@ -14,5 +16,5 @@ trait GridCreateStrategy {
     grid
   }
 
-  def setGrid(grid: Grid) : Grid // abstract
+  def setGrid(grid: IGrid) : Grid // abstract
 }

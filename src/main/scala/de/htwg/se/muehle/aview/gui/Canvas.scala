@@ -2,11 +2,11 @@ package de.htwg.se.muehle.aview.gui
 
 import java.awt.{BasicStroke, Color, Graphics2D}
 
-import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.muehle.controller.controllerComponent.IController
 
 import scala.swing._
 
-class Canvas(controller: Controller) extends Panel{
+class Canvas(controller: IController) extends Panel{
   val BACKCOLOR = new Color(200,200,100)
   val HIGHLIGHT = new Color(34,139,34)
   var counter = 0

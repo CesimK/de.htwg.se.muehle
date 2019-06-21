@@ -2,9 +2,10 @@ package de.htwg.se.muehle.controller.controllerComponent.commands
 
 import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Grid
-import de.htwg.se.muehle.controller.controllerComponent.ICommands
+import de.htwg.se.muehle.util.Command
 
-class MoveCommand(controller: Controller, src:Int, pos:Int) extends ICommand {
+
+class MoveCommand(controller: Controller, src:Int, pos:Int) extends Command {
   override def doStep(): Unit = {
     val edit_grid = controller.grid.filled
     if (controller.active.jump) {

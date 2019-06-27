@@ -1,5 +1,7 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
+import com.google.inject.{Guice, Inject}
+import de.htwg.se.muehle.MuehleModule
 import de.htwg.se.muehle.controller.controllerComponent.IController
 import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
 import de.htwg.se.muehle.model.gridComponent.IGrid
@@ -10,7 +12,8 @@ import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, Observable, UndoManager
 
 import scala.swing.Publisher
 
-class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher with IController {
+
+class Controller (var grid:Grid, var p1:Player, var p2:Player) extends Publisher with IController {
   var active:Player = p1
   var status:String = " "
   var highlight = Array.fill[Boolean](grid.filled.length)(false)
@@ -21,7 +24,10 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
   val active_Moved = new ControllerStateActiveMoved
 
   private val undo_manager = new UndoManager
-
+  @Inject
+  def this () {
+    this(Grid(init = true), Player("Cesim Keskin", 'W'), Player("Christopher Gogl", 'B'))
+  }
   override def newGame():Unit = {
     grid = (new GridCreateGridStrategy).setGrid(grid)
     p1 = Player(p1.name, 'W')

@@ -4,6 +4,7 @@ import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Grid
 import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.muehle.util.Command
 
+
 class PlaceCommand(controller: Controller, pos:Int) extends Command{
   override def doStep: Unit = {
     val edit_grid = controller.grid.filled

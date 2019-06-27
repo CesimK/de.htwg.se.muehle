@@ -1,15 +1,17 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
+import com.google.inject.Inject
 import de.htwg.se.muehle.controller.controllerComponent.IController
 import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
-import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Mill.Mill
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.playerComponent.Player
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, Observable, UndoManager}
+import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, UndoManager}
 
 import scala.swing.Publisher
 
-class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher with IController {
+
+class Controller (var grid:Grid, var p1:Player, var p2:Player) extends Publisher with IController {
   var active:Player = p1
   var status:String = " "
   var highlight = Array.fill[Boolean](grid.filled.length)(false)
@@ -20,7 +22,10 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
   val active_Moved = new ControllerStateActiveMoved
 
   private val undo_manager = new UndoManager
-
+  @Inject
+  def this () {
+    this(Grid(init = true), Player("Cesim Keskin", 'W'), Player("Christopher Gogl", 'B'))
+  }
   override def newGame():Unit = {
     grid = (new GridCreateGridStrategy).setGrid(grid)
     p1 = Player(p1.name, 'W')
@@ -66,18 +71,19 @@ class Controller(var grid:Grid, var p1:Player, var p2:Player) extends Publisher 
     publish(new GridChanged)
   }
 
-  def undo: Unit = {
+  override def undo: Unit = {
     undo_manager.undoStep
     publish(new GridChanged)
   }
 
-  def redo: Unit = {
+  override def redo: Unit = {
     undo_manager.redoStep
     publish(new GridChanged)
   }
 
-  def isNeighbour(src:Int, dest:Int): Boolean = mills.vertex(src).contains(dest)
-  def checkField(pos:Int):Boolean = {
+  override def isNeighbour(src:Int, dest:Int): Boolean = mills.vertex(src).contains(dest)
+
+  override def checkField(pos:Int):Boolean = {
     if (grid.filled(pos) == active.color) true
     else {
       state_Moved.selectedFieldInvalid(this)

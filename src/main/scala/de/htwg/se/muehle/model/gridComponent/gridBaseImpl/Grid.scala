@@ -1,7 +1,6 @@
 package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 
 import com.google.inject.Inject
-import com.google.inject.name.Named
 import de.htwg.se.muehle.model.gridComponent.IGrid
 
 case class Grid (var filled:Array[Char] = Array.empty, init:Boolean = false, num_fields:Int = 24) extends IGrid{

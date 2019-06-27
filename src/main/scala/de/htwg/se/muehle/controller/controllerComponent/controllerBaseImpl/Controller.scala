@@ -1,14 +1,12 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
-import com.google.inject.{Guice, Inject}
-import de.htwg.se.muehle.MuehleModule
+import com.google.inject.Inject
 import de.htwg.se.muehle.controller.controllerComponent.IController
 import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
-import de.htwg.se.muehle.model.gridComponent.IGrid
-import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Mill.Mill
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.playerComponent.Player
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, Observable, UndoManager}
+import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, UndoManager}
 
 import scala.swing.Publisher
 

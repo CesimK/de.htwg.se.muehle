@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.aview
 
 import de.htwg.se.muehle.controller.controllerComponent.IController
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, Observer}
+import de.htwg.se.muehle.util.{GridChanged, InvalidTurn}
 
 import scala.swing.Reactor
 

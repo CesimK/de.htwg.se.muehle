@@ -13,6 +13,7 @@ class Tui (val controller: IController) extends Reactor {
   }
 
   def process_cmd(cmd:String):Unit = {
+    println(cmd)
     val tokens = cmd.split(" ")
     tokens(0) match {
       case "q" | "quit"          => println("Closing the game. All unsaved changes will be lost.")

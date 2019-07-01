@@ -19,6 +19,7 @@ class MoveCommand(controller: Controller, src:Int, pos:Int) extends Command {
       return
     }
     controller.grid = Grid(edit_grid, num_fields = controller.grid.num_fields)
+    controller.checkForMills()
     controller.active_Moved.switchActivePlayerMoved(controller)
   }
 
@@ -28,6 +29,7 @@ class MoveCommand(controller: Controller, src:Int, pos:Int) extends Command {
     edit_grid(src) = controller.active.color
     edit_grid(pos) = controller.grid.empt_val
     controller.grid = Grid(edit_grid, num_fields = controller.grid.num_fields)
+    controller.checkForMills()
   }
 
   override def redoStep: Unit = {
@@ -35,6 +37,7 @@ class MoveCommand(controller: Controller, src:Int, pos:Int) extends Command {
     edit_grid(pos) = controller.active.color
     edit_grid(src) = controller.grid.empt_val
     controller.grid = Grid(edit_grid, num_fields = controller.grid.num_fields)
+    controller.checkForMills()
     controller.active_Moved.switchActivePlayerMoved(controller)
   }
 }

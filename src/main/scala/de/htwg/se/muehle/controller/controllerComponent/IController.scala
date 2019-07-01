@@ -21,4 +21,6 @@ trait IController extends Publisher {
   def redo: Unit
   def isNeighbour(src:Int, dest:Int): Boolean
   def checkField(pos:Int):Boolean
+  def numMills(checkColour:Char): Int
+  def checkForMills(): Unit
 }

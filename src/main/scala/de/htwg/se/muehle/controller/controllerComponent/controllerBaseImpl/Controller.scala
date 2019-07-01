@@ -120,6 +120,7 @@ class Controller (var grid:Grid, var p1:Player, var p2:Player) extends Publisher
         publish(new GameOver)
       }
     }
+    this.active_Moved.switchActivePlayerMoved(this)
     publish(new GridChanged)
   }
 }

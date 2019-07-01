@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
 trait ControllerStateStatus {
-
+  // $COVERAGE-OFF$
   def setStatePlaceStones(controller: Controller):Unit = {
     allStonesPlaced(controller)
     slotIsFilled(controller)
@@ -13,7 +13,7 @@ trait ControllerStateStatus {
     selectedFieldNotEmpty(controller)
     selectedFieldNotReachable(controller)
   }
-
+  // $COVERAGE-ON$
   def selectedFieldNotReachable(controller: Controller): Unit
 
   def allStonesPlaced(controller: Controller): Unit

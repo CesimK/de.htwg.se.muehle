@@ -14,4 +14,5 @@ libraryDependencies += "com.google.inject" % "guice" % "4.1.0"
 libraryDependencies += "net.codingwell" %% "scala-guice" % "4.1.0"
 
 coverageExcludedFiles := "GridCreateStrategy.scala;ControllerStateStatus.scala;ControllerStateActive.scala;ControllerStateStatusSpec.scala;GridCreateGridStrategySpec.scala"
+coverageExcludedPackages := "GridCreateStrategy.scala;ControllerStateStatus.scala;ControllerStateActive.scala;ControllerStateStatusSpec.scala;GridCreateGridStrategySpec.scala"
 coverageEnabled := true

@@ -1,8 +1,13 @@
 import scala.io.Source
 
-var mills: List[(Int, Int, Int)] = List()
-val file: Source = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("mills.txt"))
-for (line <- file.getLines()) {
-  println(mills.::(line))
-  println(mills)
+object Mill{
+  def connectMills(mills: List[(Int, Int, Int)]) {
+    val file: Source = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("mills.txt"))
+    for (line <- file.getLines()) mills.::(line)
+  }
+}
+
+case class Mill(var mills: List[(Int, Int, Int)] = List()) {
+  import Mill._
+  connectMills(mills)
 }

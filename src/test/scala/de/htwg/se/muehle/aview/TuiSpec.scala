@@ -1,7 +1,8 @@
 package de.htwg.se.muehle.aview
 
-import de.htwg.se.muehle.controller.Controller
-import de.htwg.se.muehle.model.{Grid, Player}
+import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Grid
+import de.htwg.se.muehle.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiSpec extends WordSpec with Matchers {
@@ -15,8 +16,6 @@ class TuiSpec extends WordSpec with Matchers {
   "It can process some commands" when {
     "The TUI process commands it " should {
       "The command execution returns nothing for all commands." in {
-        tui.process_cmd("q") should be ()
-        tui.process_cmd("quit") should be ()
         tui.process_cmd("n") should be ()
         tui.process_cmd("new") should be ()
         tui.process_cmd("reset") should be ()
@@ -32,14 +31,23 @@ class TuiSpec extends WordSpec with Matchers {
         tui.process_cmd("load") should be ()
         tui.process_cmd("sur") should be ()
         tui.process_cmd("surrender") should be ()
-        tui.process_cmd("p 1") should be ()
-        tui.process_cmd("place 2") should be ()
+        tui.process_cmd("p") should be ()
+        tui.process_cmd("place") should be ()
         tui.process_cmd("h") should be ()
         tui.process_cmd("?") should be ()
         tui.process_cmd("help") should be ()
       }
       "An input that isn't in the command set won't trigger an error" in {
         noException should be thrownBy tui.process_cmd("Not in Set")
+      }
+      "Some commands must be called with arguments" in {
+        tui.process_cmd("move 1 2") should be ()
+        tui.process_cmd("p 1") should be ()
+      }
+      "When a status is available the TUI prints it" in {
+        controller.status = "A Status Message"
+        tui.update
+        controller.status should be (" ")
       }
     }
   }

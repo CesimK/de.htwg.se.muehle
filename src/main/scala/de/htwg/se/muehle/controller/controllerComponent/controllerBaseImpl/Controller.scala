@@ -90,4 +90,20 @@ class Controller (var grid:Grid, var p1:Player, var p2:Player) extends Publisher
       false
     }
   }
+
+  override def numMills(checkColour: Char): Int = {
+    val col_index = this.grid.filled.zipWithIndex.filter(_._1 == checkColour).map(_._2)
+    if (col_index.length >= 3) {
+      return mills.numMills(col_index)
+    }
+    0
+  }
+
+  override def checkForMills() ={
+    val num_mills:Int = this.numMills(this.active.color)
+    if (num_mills > this.active.mills) {
+      publish(new TakeStone)
+    }
+    this.active.mills = num_mills
+  }
 }

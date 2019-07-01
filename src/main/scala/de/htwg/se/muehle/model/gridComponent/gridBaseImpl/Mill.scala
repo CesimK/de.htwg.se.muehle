@@ -27,10 +27,16 @@ object Mill extends IMill {
     var vertex: Map[Int, List[Int]] = Map[Int, List[Int]]()
     connectMills(mills)
     parse_file(vertex)
-  }
 
-  def isMill(mills: List[(Int, Int, Int)]): Unit ={
-
+    def numMills(posList: Array[Int]): Int = {
+      var count:Int = 0
+      for (entry <- mills) {
+        if (posList.contains(entry._1) && posList.contains(entry._2) && posList.contains(entry._3)) {
+          count += 1
+        }
+      }
+      count
+    }
   }
 
 }

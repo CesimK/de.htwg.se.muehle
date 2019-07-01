@@ -6,7 +6,7 @@ import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, P
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Mill.Mill
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.playerComponent.Player
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, UndoManager}
+import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, TakeStone, GameOver, UndoManager}
 
 import scala.swing.Publisher
 
@@ -105,5 +105,20 @@ class Controller (var grid:Grid, var p1:Player, var p2:Player) extends Publisher
       publish(new TakeStone)
     }
     this.active.mills = num_mills
+  }
+
+  override def removeStone(pos:Int): Unit = {
+    this.grid.filled(pos) = this.grid.empt_val
+    if (this.active == this.p1) {
+      this.p2 = Player(this.p2.name, this.p2.color, this.p2.placed, this.p2.stones-1, this.p2.mills)
+      if (this.p2.stones < 3) {
+        publish(new GameOver)
+      }
+    } else if (this.active == this.p2) {
+      this.p1 = Player(this.p1.name, this.p1.color, this.p1.placed, this.p1.stones-1, this.p1.mills)
+      if (this.p1.stones < 3) {
+        publish(new GameOver)
+      }
+    }
   }
 }

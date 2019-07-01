@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.aview
 
 import de.htwg.se.muehle.controller.controllerComponent.IController
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn}
+import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, TakeStone}
 
 import scala.swing.Reactor
 
@@ -10,6 +10,7 @@ class Tui (val controller: IController) extends Reactor {
   reactions += {
     case event:GridChanged => update
     case event:InvalidTurn => update
+    case event:TakeStone   => takeStone
   }
 
   def process_cmd(cmd:String):Unit = {
@@ -65,6 +66,21 @@ class Tui (val controller: IController) extends Reactor {
     println("Stones placed: " + controller.active.placed)
     println("Stones left: " + controller.active.stones)
     println(controller.gridToString)
+  }
+
+  def takeStone():Unit = {
+    println("Select a Stone of your Oponnent.")
+    println("Your colour: " + controller.active.color)
+    println(controller.gridToString)
+    var input:String = ""
+    while (true) {
+      input = scala.io.StdIn.readLine()
+      val pos = input.toInt
+      if (!(controller.grid.filled(pos) == controller.active.color) && !(controller.grid.filled(pos) == controller.grid.empt_val)) {
+        controller.removeStone(pos)
+      }
+      println("Select a stone of your oponnent.")
+    }
   }
 
 }

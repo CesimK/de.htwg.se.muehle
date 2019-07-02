@@ -9,7 +9,7 @@ val NUMBER_VERTEX = 24
 var millsArray : Array[MillsList] = new Array[MillsList](NUMBER_VERTEX)
 
 
-val file = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("vertex.txt"))
+val file = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("vertexTest.txt"))
 
 
 for (line <- file.getLines()) {

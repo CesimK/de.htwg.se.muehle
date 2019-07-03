@@ -5,9 +5,7 @@ import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Contr
 import org.scalatest.{Matchers, WordSpec}
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Grid
 import de.htwg.se.muehle.model.playerComponent.Player
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, Observer}
-
-import scala.swing.Reactor
+import de.htwg.se.muehle.util.{GridChanged, InvalidTurn}
 
 class ControllerSpec extends WordSpec with Matchers {
   val grid = Grid(init = true)
@@ -16,6 +14,10 @@ class ControllerSpec extends WordSpec with Matchers {
   val controller = new Controller(grid, player1, player2)
 
   "A new Controller" when {
+    "has a default constructur with no arguments that always create a new game field" in {
+      val new_contr = new Controller()
+      new_contr should be equals(controller)
+    }
     "can ask its grid to create a String to display" in {
       val def_out = "O-----O-----O\n" +
         "| O---O---O |\n" +
@@ -101,6 +103,19 @@ class ControllerSpec extends WordSpec with Matchers {
       "The Game can be saved and load from the controller" in {
         controller.saveGame()
         controller.loadGame() should be equals(controller)
+      }
+      "The controller can check if a field ebllongs to the active player.\n" +
+        "So we can check if the user perform a valid turn." in {
+        controller.checkField(1) should be (true)
+        controller.checkField(23) should be (false)
+        controller.checkField(13) should be (false)
+      }
+
+      "A Stone that is taken by a player, must be removed from the field." in {
+        controller.removeStone(1)
+        controller.active should be (controller.p2)
+        controller.grid.filled(1) should be (controller.grid.empt_val)
+        controller.active should be (controller.p2)
       }
     }
   }

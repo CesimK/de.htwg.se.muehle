@@ -15,6 +15,6 @@ class MuehleModule extends AbstractModule with ScalaModule {
     bindConstant().annotatedWith(Names.named("Fields")).to(24)
     bind[IController].to[controllerBaseImpl.Controller]
     bind[IGrid].to[gridBaseImpl.Grid]
-    bind[FileIOInterface].to[xmlImpl.FileIO]
+    bind[FileIOInterface].to[jsonImpl.FileIO]
   }
 }

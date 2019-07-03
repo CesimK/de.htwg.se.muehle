@@ -26,7 +26,6 @@ class FileIO extends FileIOInterface{
   }
 
   def gridFromXml(seq: NodeSeq): Grid = {
-    val tmp:NodeSeq = (seq \\ "filled")
     new Grid((seq \ "filled").text.replaceAll(" ", "").toCharArray)
   }
 

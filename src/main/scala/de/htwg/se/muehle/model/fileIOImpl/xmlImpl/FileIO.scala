@@ -26,7 +26,7 @@ class FileIO extends FileIOInterface{
   }
 
   def gridFromXml(seq: NodeSeq): Grid = {
-    new Grid((seq \ "filled").text.replaceAll(" ", "").toCharArray)
+    new Grid((seq \ "filled").text.toCharArray)
   }
 
   def playerFromXml(seq: NodeSeq): Player = {
@@ -58,7 +58,7 @@ class FileIO extends FileIOInterface{
   }
 
   def gridToXml(grid: IGrid) = {
-    <filled>{grid.filled}</filled>
+    <filled>{grid.filled.toBuffer.toString.replaceAll(", ", "").substring(12,36)}</filled>
   }
 
   def playerToXml(player: Player) = {

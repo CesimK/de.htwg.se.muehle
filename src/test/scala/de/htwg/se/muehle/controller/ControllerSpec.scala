@@ -3,7 +3,8 @@ package de.htwg.se.muehle.controller
 
 import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
 import org.scalatest.{Matchers, WordSpec}
-import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Grid
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl._
+import de.htwg.se.muehle.model.gridComponent.IGrid
 import de.htwg.se.muehle.model.playerComponent.Player
 import de.htwg.se.muehle.util.{GridChanged, InvalidTurn}
 
@@ -119,6 +120,24 @@ class ControllerSpec extends WordSpec with Matchers {
       "If a player has a mill he can take a stone of the oponent" in {
         controller.grid = new Grid((("W"*9)+("O"*6)+("B"*9)).toCharArray)
         controller.checkForMills() should be ()
+      }
+      "Players can take the stones of each other and with less than 3 stones one is the winner" in {
+        controller.grid = new Grid((("W"*9)+("O"*6)+("B"*9)).toCharArray)
+        controller.removeStone(0)
+        controller.removeStone(1)
+        controller.removeStone(2)
+        controller.removeStone(3)
+        controller.removeStone(4)
+        controller.removeStone(5)
+
+        controller.removeStone(23)
+        controller.removeStone(22)
+        controller.removeStone(21)
+        controller.removeStone(20)
+        controller.removeStone(19)
+        controller.removeStone(18)
+
+        controller.removeStone(6)
       }
     }
   }

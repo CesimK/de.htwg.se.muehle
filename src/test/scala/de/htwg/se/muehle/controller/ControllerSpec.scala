@@ -98,6 +98,10 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.grid.filled(12) should be (controller.p2.color)
         controller.active should be (controller.p1)
       }
+      "The Game can be saved and load from the controller" in {
+        controller.saveGame()
+        controller.loadGame() should be equals(controller)
+      }
     }
   }
 }

@@ -5,6 +5,7 @@ import com.google.inject.name.Names
 import net.codingwell.scalaguice.ScalaModule
 import de.htwg.se.muehle.controller.controllerComponent._
 import de.htwg.se.muehle.model.gridComponent.{IGrid, gridBaseImpl}
+import de.htwg.se.muehle.model.fileIOImpl._
 
 
 class MuehleModule extends AbstractModule with ScalaModule {
@@ -14,5 +15,6 @@ class MuehleModule extends AbstractModule with ScalaModule {
     bindConstant().annotatedWith(Names.named("Fields")).to(24)
     bind[IController].to[controllerBaseImpl.Controller]
     bind[IGrid].to[gridBaseImpl.Grid]
+    bind[FileIOInterface].to[xmlImpl.FileIO]
   }
 }

@@ -16,12 +16,16 @@ class FileIoSpec extends WordSpec with Matchers {
       "Load a state, will create the old state to continue playing there." in {
         val load_controller = xmlio.load()
         load_controller.active should be equals (controller.active)
+        controller.active should be (controller.p1)
       }
       "Even when the other players turn is, that state will be restored." in {
+        controller.active should be (controller.p1)
         controller.placeStone(0)
+        controller.active should be (controller.p2)
         xmlio.save(controller)
         val load_controller = xmlio.load()
         load_controller should be equals (controller)
+        load_controller.active should be (load_controller.p2)
       }
     }
     "The JSON writer will do the same thing as the XML writer. Only in JSOn format" should {

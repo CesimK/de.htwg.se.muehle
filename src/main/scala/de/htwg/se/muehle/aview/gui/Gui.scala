@@ -22,6 +22,8 @@ class Gui(controller: IController) extends MainFrame{
       mnemonic = Key.F
       contents += new MenuItem(Action("New")  {controller.newGame()})
       contents += new MenuItem(Action("Quit") {System.exit(0)})
+      contents += new MenuItem(Action("Save") {controller.saveGame()})
+      contents += new MenuItem(Action("Load") {controller.loadGame()})
     }
     contents += new Menu("Edit") {
       mnemonic = Key.E
@@ -106,9 +108,9 @@ class Gui(controller: IController) extends MainFrame{
   redraw()
 
   def redraw(): Unit = {
-    canvas.redraw()
     activePlayer.text = controller.active.name
     status.text = controller.status
+    canvas.redraw()
   }
 
   def check_clicked(point: Point):Int = {
@@ -130,7 +132,7 @@ class Gui(controller: IController) extends MainFrame{
 
   def takeStone(): Unit = {
     controller.status = "Choose a stone oof yput oponent."
-    canvas.redraw()
+    redraw()
     take = true
   }
 

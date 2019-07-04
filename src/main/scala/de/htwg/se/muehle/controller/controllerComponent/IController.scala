@@ -24,4 +24,6 @@ trait IController extends Publisher {
   def numMills(checkColour:Char): Int
   def checkForMills(): Unit
   def removeStone(pos:Int): Unit
+  def saveGame(): Unit
+  def loadGame(): Unit
 }

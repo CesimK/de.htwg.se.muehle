@@ -23,8 +23,8 @@ class Tui (val controller: IController) extends Reactor {
       case "m" | "move"          => if (tokens.length == 3) controller.moveStone(tokens(1).toInt - 1, tokens(2).toInt - 1)
       case "u" | "undo"          => controller.undo
       case "r" | "redo"          => controller.redo
-      case "s" | "save"          => println("Save the game")
-      case "l" | "load"          => println("Load the game")
+      case "s" | "save"          => controller.saveGame()
+      case "l" | "load"          => controller.loadGame()
       case "p" | "place"         => if (tokens.length == 2) controller.placeStone(tokens(1).toInt - 1)
       case "sur" | "surrender"   => println("Give up")
       case "h" | "?" | "help"    => println(this.help_text())

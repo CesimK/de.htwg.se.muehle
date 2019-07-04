@@ -71,7 +71,7 @@ class Tui (val controller: IController) extends Reactor {
   }
 
   def takeStone():Unit = {
-    println("Select a Stone of your Oponnent.")
+    println("Select a Stone of your Opponent.")
     println("Your colour: " + controller.active.color)
     println(controller.gridToString)
     var input:String = ""
@@ -80,9 +80,9 @@ class Tui (val controller: IController) extends Reactor {
       val pos = input.toInt
       if (!(controller.grid.filled(pos) == controller.active.color) && !(controller.grid.filled(pos) == controller.grid.empt_val)) {
         controller.removeStone(pos)
-        break
+        return
       }
-      println("Select a stone of your oponnent.")
+      println("Select a stone of your opponent.")
     }}
   }
 

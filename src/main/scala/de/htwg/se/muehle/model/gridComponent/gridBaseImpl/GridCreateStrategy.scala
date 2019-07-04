@@ -4,9 +4,9 @@ import de.htwg.se.muehle.model.gridComponent.IGrid
 
 trait GridCreateStrategy {
 
-  def createNewGrid(charArray: Array[Char]): Grid = {
+  def createNewGrid(): Grid = {
 
-    var grid = new Grid(charArray)
+    var grid = new Grid()
     grid = prepare(grid)
     grid = setGrid(grid)
 

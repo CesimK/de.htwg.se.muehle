@@ -4,12 +4,12 @@ package de.htwg.se.muehle.controller
 import de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl.Controller
 import org.scalatest.{Matchers, WordSpec}
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl._
-import de.htwg.se.muehle.model.gridComponent.IGrid
 import de.htwg.se.muehle.model.playerComponent.Player
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn}
+
 
 class ControllerSpec extends WordSpec with Matchers {
-  val grid = Grid(init = true)
+  var grid = Grid()
+  grid = (new GridCreateGridStrategy).setGrid(grid)
   val player1 = Player("Person 1", 'W')
   val player2 = Player("Person 2", 'B')
   val controller = new Controller(grid, player1, player2)
@@ -138,6 +138,9 @@ class ControllerSpec extends WordSpec with Matchers {
         controller.removeStone(18)
 
         controller.removeStone(6)
+      }
+      "start new game" in {
+        controller.newGame()
       }
     }
   }

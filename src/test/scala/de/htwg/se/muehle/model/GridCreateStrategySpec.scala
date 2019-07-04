@@ -6,9 +6,9 @@ import org.scalatest.{Matchers, WordSpec}
 
 class GridCreateStrategySpec extends WordSpec with Matchers with GridCreateStrategy {
   "A CreateStrategy" when { "new" should {
-    val grid = Grid(filled = Array.empty)
+    val grid = Grid(init = true)
     "should create a new Grid" in {
-      createNewGrid(grid.filled) should be(grid)
+      createNewGrid() should be equals (grid)
     }
     "should prepare" in {
       prepare(grid) should be(grid)

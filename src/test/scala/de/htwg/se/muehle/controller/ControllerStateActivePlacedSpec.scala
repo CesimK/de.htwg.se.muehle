@@ -25,14 +25,13 @@ class ControllerStateActivePlacedSpec extends WordSpec with Matchers{
     "should switch active player after removed" in {
       controller.active should be(controller.p1)
       active_moved.switchActivePlayerRemoved(controller)
-      controller.active should be(controller.p2)
-    }
-    "should be able to switch player back to first player after remove" in {
-      controller.active should be(controller.p2)
-      active_moved.switchActivePlayerRemoved(controller)
       controller.active should be(controller.p1)
+      controller.active = controller.p2
+      active_moved.switchActivePlayerRemoved(controller)
+      controller.active should be(controller.p2)
     }
     "should switch active player after moved" in {
+      controller.active = controller.p1
       controller.active should be (controller.p1)
       active_moved.switchActivePlayerMoved(controller)
       controller.active should be (controller.p1)

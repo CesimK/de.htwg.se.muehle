@@ -19,7 +19,7 @@ class PlaceCommand(controller: Controller, pos:Int) extends Command{
     edit_grid(pos) = controller.grid.empt_val
     controller.grid = Grid(edit_grid, num_fields = controller.grid.num_fields)
     controller.checkForMills()
-    controller.active_Placed.switchActivePlayerRemoved(controller)
+    controller.active_Placed.switchActivePlayerPlaced(controller)
   }
 
 

@@ -115,7 +115,7 @@ class ControllerSpec extends WordSpec with Matchers {
       "A Stone that is taken by a player, must be removed from the field." in {
         controller.removeStone(1)
         controller.grid.filled(1) should be (controller.grid.empt_val)
-        controller.active should be (controller.p2)
+        controller.active should be (controller.p1)
       }
       "If a player has a mill he can take a stone of the oponent" in {
         controller.grid = new Grid((("W"*9)+("O"*6)+("B"*9)).toCharArray)

@@ -1,7 +1,7 @@
 package de.htwg.se.muehle.aview.gui
 
 import de.htwg.se.muehle.controller.controllerComponent.IController
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn}
+import de.htwg.se.muehle.util.{GameOver, GridChanged, InvalidTurn, TakeStone}
 
 import scala.swing.BorderPanel.Position.{Center, North, South}
 import scala.swing._
@@ -14,6 +14,7 @@ class Gui(controller: IController) extends MainFrame{
   val outFont = new Font("Ariel", java.awt.Font.PLAIN, 24)
   val statFont = new Font("Ariel", java.awt.Font.PLAIN, 16)
   var moveFrom = -1
+  var take = false
 
   title = "HTWG Muehle"
   menuBar = new MenuBar {
@@ -21,6 +22,8 @@ class Gui(controller: IController) extends MainFrame{
       mnemonic = Key.F
       contents += new MenuItem(Action("New")  {controller.newGame()})
       contents += new MenuItem(Action("Quit") {System.exit(0)})
+      contents += new MenuItem(Action("Save") {controller.saveGame()})
+      contents += new MenuItem(Action("Load") {controller.loadGame()})
     }
     contents += new Menu("Edit") {
       mnemonic = Key.E
@@ -68,7 +71,8 @@ class Gui(controller: IController) extends MainFrame{
   reactions += {
     case MouseClicked(_,point,_,_,_) => {
       val pos = check_clicked(point)
-      if (pos >= 0) {
+
+      if (pos >= 0 && !take) {
         if (controller.active.placed < 9) controller.placeStone(pos)
         else if (moveFrom == -1) {
           if (controller.checkField(pos)) {
@@ -82,20 +86,31 @@ class Gui(controller: IController) extends MainFrame{
           moveFrom = -1
         }
         else moveFrom = -1
+      } else if (take) {
+        if (controller.grid.filled(pos) == controller.active.color) {
+          controller.status = "Select oponents stone. Not your own ones."
+        } else if (controller.grid.filled(pos) == controller.grid.empt_val) {
+          controller.status = "Select a field with a stone of your oponent. Empty one is bad"
+        } else {
+          controller.removeStone(pos)
+          take = false
+        }
       }
       redraw()
     }
     case event:GridChanged => redraw()
     case event:InvalidTurn => redraw()
+    case event:TakeStone   => takeStone()
+    case event:GameOver    => gameOver()
   }
   centerOnScreen()
   visible = true
   redraw()
 
   def redraw(): Unit = {
-    canvas.redraw()
     activePlayer.text = controller.active.name
     status.text = controller.status
+    canvas.redraw()
   }
 
   def check_clicked(point: Point):Int = {
@@ -112,5 +127,19 @@ class Gui(controller: IController) extends MainFrame{
       case 3     => if (List(0,1,2,4,5,6).contains(col)) pos = row*3 + List(0,1,2,4,5,6).indexOf(col)
     }
     pos
+  }
+
+
+  def takeStone(): Unit = {
+    controller.status = "Choose a stone oof yput oponent."
+    redraw()
+    take = true
+  }
+
+  def gameOver(): Unit = {
+    val msg:String = "Game ended!\n" + controller.active.name + " you win the game.\n\nCongratulation."
+    val title = "Game Over"
+    Dialog.showMessage(contents.head, msg, title)
+    System.exit(0)
   }
 }

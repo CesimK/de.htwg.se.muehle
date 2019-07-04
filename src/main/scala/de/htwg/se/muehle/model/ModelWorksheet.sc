@@ -1,13 +1,26 @@
 import scala.io.Source
 
-object Mill{
-  def connectMills(mills: List[(Int, Int, Int)]) {
-    val file: Source = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("mills.txt"))
-    for (line <- file.getLines()) mills.::(line)
-  }
+class MillsList {
+  var millList1 : List[Int] = List()
+  var millList2 : List[Int] = List()
 }
 
-case class Mill(var mills: List[(Int, Int, Int)] = List()) {
-  import Mill._
-  connectMills(mills)
+val NUMBER_VERTEX = 24
+var millsArray : Array[MillsList] = new Array[MillsList](NUMBER_VERTEX)
+
+
+val file = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("vertexTest.txt"))
+
+
+for (line <- file.getLines()) {
+  val node = line.split(" ")(0).toInt
+  val neighbour = line.split(" ")(1).toInt
+  if (line.contains("mill1"))
+    millsArray(node).millList1.::(neighbour)
+  if(line.contains("mills2"))
+    millsArray(node).millList2.::(neighbour)
 }
+
+println(millsArray)
+
+

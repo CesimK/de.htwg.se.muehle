@@ -3,7 +3,7 @@ package de.htwg.se.muehle.model.gridComponent.gridBaseImpl
 import com.google.inject.Inject
 import de.htwg.se.muehle.model.gridComponent.IGrid
 
-case class Grid (var filled:Array[Char] = Array.empty, init:Boolean = false, num_fields:Int = 24) extends IGrid{
+case class Grid (var filled:Array[Char] = Array.empty, init:Boolean = false, num_fields:Int = 24) extends IGrid {
   val empty_field = "O"
   val empt_val = 'O'
   if (init) filled = empty_grid

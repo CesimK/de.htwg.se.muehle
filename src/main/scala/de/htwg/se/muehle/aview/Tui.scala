@@ -1,8 +1,9 @@
 package de.htwg.se.muehle.aview
 
 import de.htwg.se.muehle.controller.controllerComponent.IController
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, TakeStone}
+import de.htwg.se.muehle.util.{GameOver, GridChanged, InvalidTurn, TakeStone}
 
+import util.control.Breaks._
 import scala.swing.Reactor
 
 class Tui (val controller: IController) extends Reactor {
@@ -11,6 +12,7 @@ class Tui (val controller: IController) extends Reactor {
     case event:GridChanged => update
     case event:InvalidTurn => update
     case event:TakeStone   => takeStone
+    case event:GameOver    => gameover
   }
 
   def process_cmd(cmd:String):Unit = {
@@ -21,8 +23,8 @@ class Tui (val controller: IController) extends Reactor {
       case "m" | "move"          => if (tokens.length == 3) controller.moveStone(tokens(1).toInt - 1, tokens(2).toInt - 1)
       case "u" | "undo"          => controller.undo
       case "r" | "redo"          => controller.redo
-      case "s" | "save"          => println("Save the game")
-      case "l" | "load"          => println("Load the game")
+      case "s" | "save"          => controller.saveGame()
+      case "l" | "load"          => controller.loadGame()
       case "p" | "place"         => if (tokens.length == 2) controller.placeStone(tokens(1).toInt - 1)
       case "sur" | "surrender"   => println("Give up")
       case "h" | "?" | "help"    => println(this.help_text())
@@ -73,14 +75,20 @@ class Tui (val controller: IController) extends Reactor {
     println("Your colour: " + controller.active.color)
     println(controller.gridToString)
     var input:String = ""
-    while (true) {
+    breakable { while (true) {
       input = scala.io.StdIn.readLine()
       val pos = input.toInt
       if (!(controller.grid.filled(pos) == controller.active.color) && !(controller.grid.filled(pos) == controller.grid.empt_val)) {
         controller.removeStone(pos)
+        break
       }
       println("Select a stone of your oponnent.")
-    }
+    }}
   }
 
+  def gameover(): Unit = {
+    println("Game is over.")
+    println("Winner is: " + controller.active.name)
+    System.exit(0);
+  }
 }

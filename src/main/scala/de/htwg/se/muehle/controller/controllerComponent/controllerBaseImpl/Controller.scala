@@ -1,12 +1,14 @@
 package de.htwg.se.muehle.controller.controllerComponent.controllerBaseImpl
 
-import com.google.inject.Inject
+import com.google.inject.{Guice, Inject}
+import de.htwg.se.muehle.MuehleModule
 import de.htwg.se.muehle.controller.controllerComponent.IController
 import de.htwg.se.muehle.controller.controllerComponent.commands.{MoveCommand, PlaceCommand}
+import de.htwg.se.muehle.model.fileIOImpl.FileIOInterface
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Mill.Mill
 import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.{Grid, GridCreateGridStrategy}
 import de.htwg.se.muehle.model.playerComponent.Player
-import de.htwg.se.muehle.util.{GridChanged, InvalidTurn, TakeStone, GameOver, UndoManager}
+import de.htwg.se.muehle.util.{GameOver, GridChanged, InvalidTurn, TakeStone, UndoManager}
 
 import scala.swing.Publisher
 
@@ -20,7 +22,8 @@ class Controller (var grid:Grid, var p1:Player, var p2:Player) extends Publisher
   val state_Moved = new ControllerStateStatusMoved
   val active_Placed = new ControllerStateActivePlaced
   val active_Moved = new ControllerStateActiveMoved
-
+  val injector = Guice.createInjector(new MuehleModule)
+  val fileio = injector.getInstance(classOf[FileIOInterface])
   private val undo_manager = new UndoManager
   @Inject
   def this () {
@@ -120,5 +123,21 @@ class Controller (var grid:Grid, var p1:Player, var p2:Player) extends Publisher
         publish(new GameOver)
       }
     }
+    this.active_Moved.switchActivePlayerMoved(this)
+    publish(new GridChanged)
+  }
+
+  override def saveGame(): Unit = {
+    fileio.save(this)
+  }
+
+  override def loadGame(): Unit = {
+    val c = fileio.load()
+    this.grid = c.grid
+    this.p1 = c.p1
+    this.p2 = c.p2
+    this.status =c.status
+    this.active = c.active
+    publish(new GridChanged)
   }
 }

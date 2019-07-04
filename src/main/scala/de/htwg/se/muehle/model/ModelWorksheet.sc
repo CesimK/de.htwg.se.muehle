@@ -1,26 +1,14 @@
+import de.htwg.se.muehle.model.gridComponent.gridBaseImpl.Mill.getClass
+
 import scala.io.Source
-
-class MillsList {
-  var millList1 : List[Int] = List()
-  var millList2 : List[Int] = List()
-}
-
-val NUMBER_VERTEX = 24
-var millsArray : Array[MillsList] = new Array[MillsList](NUMBER_VERTEX)
-
-
-val file = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("vertexTest.txt"))
-
-
+var tmp: List[(Int, Int, Int)] = List()
+val file = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("mills.txt"))
 for (line <- file.getLines()) {
-  val node = line.split(" ")(0).toInt
-  val neighbour = line.split(" ")(1).toInt
-  if (line.contains("mill1"))
-    millsArray(node).millList1.::(neighbour)
-  if(line.contains("mills2"))
-    millsArray(node).millList2.::(neighbour)
+  val tokens = line.split(" ")
+  val t1 = tokens(0).toInt
+  val t2 = tokens(1).toInt
+  val t3 = tokens(2).toInt
+  val tupel = (t1,t2,t3)
+  tmp = tmp.::(tupel)
 }
-
-println(millsArray)
-
-
+println(tmp)

@@ -7,7 +7,7 @@ class MillSpec extends WordSpec with Matchers {
   "A Mill" when { "new" should {
     val mill = Mill()
     "get mills" in {
-     mill.mills should be(List())
+     mill.mills should not be(List())
     }
    }
   }

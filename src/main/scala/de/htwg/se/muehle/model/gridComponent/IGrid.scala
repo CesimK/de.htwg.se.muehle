@@ -15,5 +15,5 @@ trait IGrid extends Publisher{
 
 trait IMill{
   def parse_file(vertex: Map[Int, List[Int]]):Unit
-  def connectMills(mill: List[(Int, Int, Int)])
+  def connectMills(): List[(Int,Int,Int)]
 }

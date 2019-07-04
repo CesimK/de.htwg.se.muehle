@@ -6,9 +6,18 @@ import scala.io.Source
 import scala.collection.mutable.Map
 
 object Mill extends IMill {
-  override def connectMills(mill: List[(Int, Int, Int)]){
-   for (line <- Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("mills.txt")).getLines())
-     mill.::(line)
+  override def connectMills(): List[(Int, Int, Int)] = {
+    var tmp: List[(Int, Int, Int)] = List()
+    val file = Source.fromInputStream(getClass().getClassLoader().getResourceAsStream("mills.txt"))
+    for (line <- file.getLines()) {
+      val tokens = line.split(" ")
+      val t1 = tokens(0).toInt
+      val t2 = tokens(1).toInt
+      val t3 = tokens(2).toInt
+      val tupel = (t1, t2, t3)
+      tmp = tmp.::(tupel)
+    }
+    tmp
   }
 
   override def parse_file(vertex: Map[Int, List[Int]]): Unit = {
@@ -24,7 +33,7 @@ object Mill extends IMill {
 
   case class Mill(var mills: List[(Int, Int, Int)] = List()) {
     var vertex: Map[Int, List[Int]] = Map[Int, List[Int]]()
-    connectMills(mills)
+    mills = connectMills()
     parse_file(vertex)
 
     def numMills(posList: Array[Int]): Int = {

@@ -13,7 +13,7 @@ trait IGrid extends Publisher{
   def is_free (x: Int): Boolean
 }
 
-trait IMill {
+trait IMill{
   def parse_file(vertex: Map[Int, List[Int]]):Unit
-  def connectMills(mills: List[(Int, Int, Int)])
+  def connectMills(): List[(Int,Int,Int)]
 }

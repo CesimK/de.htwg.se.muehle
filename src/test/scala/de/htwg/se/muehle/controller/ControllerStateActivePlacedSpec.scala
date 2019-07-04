@@ -13,21 +13,29 @@ class ControllerStateActivePlacedSpec extends WordSpec with Matchers{
     val player2 = Player("Person 2", 'B')
     val controller = new Controller(grid, player1, player2)
     "should switch active player after placed" in {
-      if (controller.active.name.equals(controller.p1.name)) {
-        active_moved.switchActivePlayerPlaced(controller) should be(controller.active = controller.p2)
-      } else {
-        active_moved.switchActivePlayerPlaced(controller) should be(controller.active = controller.p1)
-      }
+      controller.active should be(controller.p1)
+      active_moved.switchActivePlayerPlaced(controller)
+      controller.active should be(controller.p2)
+    }
+    "should be able to switch player back to first player" in {
+      controller.active should be(controller.p2)
+      active_moved.switchActivePlayerPlaced(controller)
+      controller.active should be(controller.p1)
     }
     "should switch active player after removed" in {
-      if (controller.active.name.equals(controller.p1.name)) {
-        active_moved.switchActivePlayerRemoved(controller) should be(controller.active = controller.p2)
-      } else {
-        active_moved.switchActivePlayerRemoved(controller) should be(controller.active = controller.p1)
-      }
+      controller.active should be(controller.p1)
+      active_moved.switchActivePlayerRemoved(controller)
+      controller.active should be(controller.p2)
+    }
+    "should be able to switch player back to first player after remove" in {
+      controller.active should be(controller.p2)
+      active_moved.switchActivePlayerRemoved(controller)
+      controller.active should be(controller.p1)
     }
     "should switch active player after moved" in {
-      active_moved.switchActivePlayerMoved(controller) should be (controller.active = null)
+      controller.active should be (controller.p1)
+      active_moved.switchActivePlayerMoved(controller)
+      controller.active should be (controller.p1)
     }
   }}
 

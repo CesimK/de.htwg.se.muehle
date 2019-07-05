@@ -13,9 +13,6 @@ class GridCreateStrategySpec extends WordSpec with Matchers with GridCreateStrat
     "should prepare" in {
       prepare(grid) should be(grid)
     }
-    "should create new Grid" in {
-//      setGrid(grid:IGrid) should be(grid)
-    }
   }}
 
   override def setGrid(grid: IGrid): Grid = Grid(init = true)

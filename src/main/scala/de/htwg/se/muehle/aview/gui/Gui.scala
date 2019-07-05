@@ -131,7 +131,7 @@ class Gui(controller: IController) extends MainFrame{
 
 
   def takeStone(): Unit = {
-    controller.status = "Choose a stone oof yput oponent."
+    controller.status = "Choose a stone of your opponent."
     redraw()
     take = true
   }
